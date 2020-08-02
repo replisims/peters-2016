@@ -1,17 +1,16 @@
 ---
-title: "Title Goes Here"
+title: "Replication report Petersen et al 2006"
 author:
-  - Myfirstname Mylastname:
-      email: fl@oneplace.edu
+  - Anna Lohmann:
+      email: a.l.lohmann@lumc.nl
       institute: [UofO]
       correspondence: true
-  - Yourfirstname Yourlastname:
-      email: fl@another.edu
-      institute: [UofA]
+  - Rolf Groenwold:
+      email: r.h.h.groenwold@lumc.nl
+      institute: [Uof0]
       correspondence: false
 institute:
-  - UofO: University of One Place
-  - UofA: University of Another Place
+  - UofO: Department of Clinical Epidemiology Leiden University Medical Center
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
     bookdown::word_document2:

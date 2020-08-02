@@ -1,7 +1,8 @@
+library(ggplot2)
+
 indexed_power <- cbind(row_index = 1:nrow(power_table), power_table)
 
-nested_plot <-
-  ggplot(data = indexed_power,
+nested_plot <-ggplot(data = indexed_power,
          aes(
            x = row_index,
            y = power,
