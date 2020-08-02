@@ -1,0 +1,96 @@
+# History files
+.Rhistory
+.Rapp.history
+*.Rproj
+
+# Session Data files
+.RData*
+
+# R data files
+*.rds
+*.RDS
+
+# User-specific files
+.Ruserdata
+
+# Example code in package build process
+*-Ex.R
+
+# Output files from R CMD build
+*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+# R Environment Variables
+.Renviron
+
+# Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
+rsconnect/
+
+### LaTex related ignores
+
+# Temporary files from LaTex
+*.aux
+*.lof
+*.log
+*.lot
+*.out
+*.pdf
+*.gz
+*.run.xml
+*.syntex.gz
+
+## Bibliography auxiliary files (bibtex/biblatex/biber):
+*.bbl
+*.bcf
+*.blg
+
+# glossaries
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist
+*.lzo
+*.lzs
+
+# You may or may not also want to exclude the following non-text outputs
+*.ps
+*.eps
+*.pdf
+
+## Datafiles related ignores
+
+# In case you do not with to share the data
+*.sav
+*.csv
+*.dat
+.Rproj.user
+
+## Anything in folders called tmp, deprecated, archive, or dump
+tmp/
+deprecated/
+archive/
+dump/
+
