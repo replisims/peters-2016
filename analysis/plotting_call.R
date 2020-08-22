@@ -33,7 +33,7 @@ plot_type_1 <- plot_error_rate(df = results_h0_true,
 
 # Power plot --------------------------------------------------------------
 
-plot_power <- plot_error_rate(df = results_h0_false,
+plot_power <- plot_error_rate(df = power_table,
                   titel = "Power",
                   yaxis = "Power",
                   facet1 = ma_size,
@@ -41,7 +41,7 @@ plot_power <- plot_error_rate(df = results_h0_false,
                   facet3 = heterogeneity,
                   facet4 = bias_type)$plots
 
-pdf("error_rate_plot.pdf", width = 16, height = 8)
+pdf("analysis/figures/error_rate_plot.pdf", width = 16, height = 8)
 
   ((plot_type_1[[1]] / plot_type_1[[2]]) | wrap_plots(plot_power)) +
     plot_layout(guides = 'collect')

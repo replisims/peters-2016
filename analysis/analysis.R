@@ -60,5 +60,5 @@ saveRDS(results_h0_false, "results_h0_false.rds")
 # Tabular results ---------------------------------------------------------
 
 power_table <- results_h0_false %>%
-    group_by(ma_size, odds_ratio,  bias_type, test_type) %>%
-      summarize(power = mean(error_rate))
+    group_by(ma_size, odds_ratio,  bias_type, test_type, heterogeneity) %>%
+      summarize(power = mean(error_rate)) %>% ungroup()

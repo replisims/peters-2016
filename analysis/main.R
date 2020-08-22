@@ -55,10 +55,10 @@ saveRDS(scenarios, file = "scenarios.rds")
 # Run simulation ----------------------------------------------------------
 
 sim_data <-
-  run_sim(iteration_range = 1:50,    #please change for testing
+  run_sim(iteration_range = 1:100,    #please change for testing
           scenarios = scenarios)
 
-saveRDS(sim_data, file = "sim_data.rds")
+saveRDS(sim_data, file = "data/sim_data.rds")
 
-source("analysis/analysis.R")
+#source("analysis/analysis.R")
 

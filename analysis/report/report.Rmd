@@ -1,39 +1,61 @@
 ---
-title: "Replication report Petersen et al 2006"
-author:
-  - Anna Lohmann:
-      email: a.l.lohmann@lumc.nl
-      institute: [UofO]
-      correspondence: true
-  - Rolf Groenwold:
-      email: r.h.h.groenwold@lumc.nl
-      institute: [Uof0]
-      correspondence: false
-institute:
-  - UofO: Department of Clinical Epidemiology Leiden University Medical Center
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: 
-    bookdown::word_document2:
-      fig_caption: yes
-      reference_docx: "../templates/template.docx" # Insert path for the DOCX file
-      pandoc_args:
-      - --lua-filter=../templates/scholarly-metadata.lua
-      - --lua-filter=../templates/author-info-blocks.lua
-      - --lua-filter=../templates/pagebreak.lua
-bibliography: references.bib
-csl: "../templates/journal-of-archaeological-science.csl" # Insert path for the bib-style
-abstract: |
-  Text of abstract
-keywords: |
-  keyword 1; keyword 2; keyword 3
-highlights: |
-  These are the highlights. 
----
+title             : "Replication Report - Peters et al. 2006"
+shorttitle        : "Replication Report"
 
+author: 
+  - name          : "Anna Lohmann"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Postal address"
+    email         : "a.l.lohmann@lumc.nl"
+    role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
+      - Conceptualization
+      - Writing - Original Draft Preparation
+      - Simulation implementation
+      - Review & Editing
+  - name          : "Rolf H. H. Groenwold"
+    affiliation   : "1,2"
+    role:
+      - Conceptualization - Review & Editing
+
+affiliation:
+  - id            : "1"
+    institution   : "Department of Clinical Epidemiology, Leiden University Medical Center, Leiden, The Netherlands"
+  - id            : "2"
+    institution   : "Rolf's second affiliation"
+
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+
+  Enter author note here.
+
+abstract: |
+  Some summary.
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["references.bib"]
+
+floatsintext      : yes
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : no
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "doc"
+output            : papaja::apa6_pdf
+---
 
 <!-- This is the format for text comments that will be ignored during renderings. Do not put R code in these comments because it will not be ignored. -->
 
-```{r setup, echo = FALSE}
+```{r setup, include = FALSE}
+library("papaja")
+r_refs("r-references.bib")
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
@@ -45,56 +67,161 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
 # Introduction
 
-Here is a citation [@Marwick2017]
+This replication report documents the replication attempt of Peters, J. L. (2006). Comparison of Two Methods to Detect Publication Bias in Meta-analysis. JAMA, 295(6), 676. https://doi.org/10.1001/jama.295.6.676
 
-# Background
+Section 2 will detail the sources of information utilized for the present replication attempt. 
+Section 3 will provide an overview of the information that was extracted from those sources.
+Section 4 covers all Researcher degrees of freedom i.e. decisions that had to be made by the replicators because of insufficient or contradicting information in the original sources. 
+Section 5 presents descriptive statistics from the data generating mechanism, i.e. the artificial sample. 
+Section 6 presents the replicated results.
 
-# Methods
+# Information basis
+
+The information upon which the replication was based stems from two different sources (1) the published manuscript as well as (2) a technical report. 
+The published manuscript mentioned that details of the simulation were available in a technical report. 
+This technical report is listed in the reference section of the published article, however it was not obtainable from the public domain (i.e. online line supplements or a public online repository). 
+The technical report [Peters, J. L., Sutton, A. J., Jones, D. R., Abrams, K. R., & Rushton, L. (2005). Performance of tests and adjustments for publication bias in the presence of heterogeneity (Technical Report No. 05–01; pp. 1–57). Department of Health Sciences, University of Leicester.] was hence obtained by email from the Department of Health Sciences at Leister University (hsenquiries@leicester.ac.uk). Conflicting or insufficient information from there two sources were supplemented with information from referenced articles in either manuscript as well as similar publications on the topic by the same authors.
+<!-- Add that the author was contacted once we have actually done that  -->
+
+
+# Extracted Information
+The following information pertaining to the implementation of the simulation study was extracted from the above mentioned sources:
+
+## Data generating mechanism
+
+### fixed effects model is given by
+$y_i=\theta + \epsilon_i$
+where $\theta$ is the true underlying effect lnOR
+
+
+### random effects model
+$y_i = \theta_i + \epsilon_i$
+with $\theta_i~ N(\mu,\tau^2)$ 
+where $\theta_i$ is the true effect in study $i$
+$\mu$ true underlying effect lnOR
+$\tau^2$ is the between-study variance
+
+Between-study variance is defined to be 20%, 150, and 500% of the average within-study variance for studies from the corresponding simulations
+this compares with specifications of $I^2$, describing the percentage of total variation across studies that is due to between-study heterogeneity rather than chance (ref 25). Here 20%, 150% and 500 % of the within-study variation corresponds to an $I^2$ of 16.7%, 60% and 83% respectively.
+
+
+## Method
+
+
+### Data generating mechanism
+
+1000 repetitions per scenario
+
+### Simulation factors
+
+The following table shows an overview of simulation factors.
+
+| Simulation factor                          | Levels                                                                      | Implementation details                                   | Source |   |
+|--------------------------------------------|-----------------------------------------------------------------------------|----------------------------------------------------------|--------|---|
+| Varied                                     |                                                                             |                                                          |        |   |
+| Publication bias                           |  none, effect size based moderate (14%), effect size based severe (40%), p-value based moderate, p-value based severe (see table below)                                                                           |                                                          |        |   |
+| True effect size (OR)                      | 1, 1.2, 1.5, 3, 5                                                           |                                                          |        |   |
+| Between Study Heterogeneity ($I^2$)          | 0, 20, 150, 500 (0, 16.7%, 60%, 83.3%)                                            | percentage of the average within-study variance estimate |        |   |
+| Number of primary studies in meta-analysis | 6, 16, 30, 90                                                               |this number corresponds to the number of studies after publication bias                                                         |        |   |
+| Sample size control group                  | exponential of the normal distribution with a mean of 5 and variance of 0.3 |                                                          |        |   |
+| Fixed                                      |                                                                             |                                                          |        |   |
+| Ratio treatment:control group              | 1:1                                                                         |                                                          |        |
+| Probability of event in control group       | sampled from unif(0.3, 0.7) | | |
+
+
+#### Publication bias
+1. studies are censored as a result of the one-sided p-value associated with the effect estimate of interest
+2. studies with the most extreme effect estimates of effect are censored 
+
+### Compared Methods
+
+#### Model 1 ( Egger's fixed effects regression on the standard error)
+Egger's regression test is given by
+$\frac{y_i}{se_i}= \beta + \frac{\alpha}{se_i}+\epsilon_i$
+
+which is equivalent to 
+$y_i = \alpha +\beta \cdot se_i +\epsilon_i \cdot se_i$ weighted by $\frac{1}{se_i^2}$
+
+where $y_i$ is the lnOR from study i and $se_i$ is the standard error of $y_i$
+
+
+
+#### Model 2 (Eggert's fixed regression on the inverse of sample size)
+$y_i \cdot size_i = \alpha +\beta \cdot size_i +\epsilon_i$ 
+
+
+
+## Performance measures
+Type 1 error rate (proportion of false positives)
+Power to detect publication bias when it is present (proportion of true positive results)
+
+# Researcher degrees of Freedom
+
+
+| Not specified                                         | Replicator decision                                                        | Justification |   |   |
+|-------------------------------------------------------|----------------------------------------------------------------------------|---------------------------|
+| Dealing with empty cells                              | add 0.5 to every empty cell                                                |common solution               |  
+| Which set to compute average within-study-variance on | largest number of studies generated before application of publication bias |Most accurate correspondance to intended I^2               |  
+| Data dependence                                       | each scenario is implemented in independently generated data               | Recomendatios of Burton et al.               |   
+| Is probability of event in control-group fixed for all studies in one meta-analysis? | Probability of event in CG assumed as fixed | Wording was not unambigous but both authors tended towards that interpretation | 
+
+
+
+## Publication bias based on effect size
+two levels
+moderate vs severe
+> either 14% or 40 % of the most extreme studies showing a negative effect of the exposure (i.e. OR <1)
+were censored such that the final number of studies in a meta -analysis was still 6, 16, 30, or 90
+i.e. for the 6 studies 10 haven been generated and 4 studies with the most extreme negative estimates have been censored
+
+This statement contradicts itself. On the one hand it suggests, that extreme studies with a negative effect of the exposure should be censored.
+On the other hand it suggests to censor either 14% or 40% of studies. Especially with large effect sized (e.g. an OR of 5) it is highly unlikely to have 40% of studies with a negative effect of the exposure.
+
+# Simulation Descriptives
 
 # Results
 
-```{r get-data, eval = FALSE}
-# Note the path that we need to use to access our data files when rendering this document
-my_data <- read.csv(here::here('analysis/data/raw_data/my_csv_file.csv'))
-```
-
-```{r demo-plot, fig.cap="A plot of random numbers"}
-plot(rnorm(10))
-```
-
-Figure \@ref(fig:demo-plot) shows how we can have a caption and cross-reference for a plot
-
-```{r demo-inline-code}
-x <- round(pi, 2)
-```
-
-Here is an example of inline code `r x` in the middle of a sentence. 
 
 # Discussion
 
-# Conclusion
 
-# Acknowledgements
+
+# Acknowledgments
 
 <!-- The following line inserts a page break  -->
 \newpage
 
-# References 
-<!-- The following line ensures the references appear here for the MS Word or HTML output files, rather than right at the end of the document (this will not work for PDF files):  -->
-<div id="refs"></div>
+\newpage
+
+# References
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id="refs" custom-style="Bibliography"></div>
+
 
 \newpage
 
-### Colophon
+### Reproducibility Information
 
-This report was generated on `r Sys.time()` using the following computational environment and dependencies: 
+This report was last updated on `r Sys.time()`. 
+The simulation replication was conducted using the following computational environment and dependencies: 
 
 ```{r colophon, cache = FALSE}
 # which R packages and versions?
 if ("devtools" %in% installed.packages()) devtools::session_info()
 ```
+
 
 The current Git commit details are:
 

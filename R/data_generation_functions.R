@@ -293,8 +293,8 @@ compute_p_value <- function(n, event_sim_exp, event_sim_contr){
     matrix(c(event_sim_exp, (n - event_sim_exp),
              event_sim_contr, (n - event_sim_contr)),
            nrow = 2, byrow = T) %>%
-      chisq.test(correct = TRUE) %>%
-        .$p.value/2
+      chisq.test(correct = FALSE) %>%
+        .$p.value
 }
 
 

@@ -1,0 +1,192 @@
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+\begin{minipage}[b]{0.20\columnwidth}\raggedright
+Simulation factor\strut
+\end{minipage} & \begin{minipage}[b]{0.35\columnwidth}\raggedright
+Levels\strut
+\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
+Implementation details\strut
+\end{minipage} & \begin{minipage}[b]{0.04\columnwidth}\raggedright
+Source\strut
+\end{minipage} & \begin{minipage}[b]{0.01\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Varied\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Publication bias\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+none, effect size based moderate (14\%), effect size based severe (40\%), p-value based moderate, p-value based severe (see table below)\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+True effect size (OR)\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+1, 1.2, 1.5, 3, 5\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Between Study Heterogeneity (\(I^2\))\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+0, 20, 150, 500 (0, 16.7\%, 60\%, 83.3\%)\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+percentage of the average within-study variance estimate\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Number of primary studies in meta-analysis\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+6, 16, 30, 90\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+this number corresponds to the number of studies after publication bias\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Sample size control group\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+exponential of the normal distribution with a mean of 5 and variance of 0.3\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Fixed\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Ratio treatment:control group\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+1:1\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.20\columnwidth}\raggedright
+Probability of event in control group\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+sampled from unif(0.3, 0.7)\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+\efloatseparator
+ 
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+Not specified\strut
+\end{minipage} & \begin{minipage}[b]{0.41\columnwidth}\raggedright
+Replicator decision\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+Justification\strut
+\end{minipage} & \begin{minipage}[b]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Dealing with empty cells\strut
+\end{minipage} & \begin{minipage}[t]{0.41\columnwidth}\raggedright
+add 0.5 to every empty cell\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+common solution\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Which set to compute average within-study-variance on\strut
+\end{minipage} & \begin{minipage}[t]{0.41\columnwidth}\raggedright
+largest number of studies generated before application of publication bias\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+Most accurate correspondance to intended I\^{}2\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Data dependence\strut
+\end{minipage} & \begin{minipage}[t]{0.41\columnwidth}\raggedright
+each scenario is implemented in independently generated data\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+Recomendatios of Burton et al.\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Is probability of event in control-group fixed for all studies in one meta-analysis?\strut
+\end{minipage} & \begin{minipage}[t]{0.41\columnwidth}\raggedright
+Probability of event in CG assumed as fixed\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+Wording was not unambigous but both authors tended towards that interpretation\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.41\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+\efloatseparator
+ 

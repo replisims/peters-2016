@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="svg2"
+   width="112"
+   height="41.599998"
+   viewBox="0 0 112 41.599998"
+   sodipodi:docname="logo.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1853"
+     inkscape:window-height="1025"
+     id="namedview4"
+     showgrid="false"
+     inkscape:zoom="1.59"
+     inkscape:cx="11.506637"
+     inkscape:cy="-169.16632"
+     inkscape:window-x="67"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.66666603px;line-height:1.25;font-family:Comfortaa;-inkscape-font-specification:'Comfortaa, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#006666;fill-opacity:1;stroke:none"
+     x="1.5533047"
+     y="18.945562"
+     id="text819"
+     inkscape:transform-center-x="-30.503002"
+     inkscape:transform-center-y="-2.6914413"><tspan
+       sodipodi:role="line"
+       id="tspan817"
+       x="1.5533047"
+       y="18.945562">REPLI</tspan><tspan
+       sodipodi:role="line"
+       x="1.5533047"
+       y="42.278893"
+       id="tspan821" /></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.66666603px;line-height:1.25;font-family:Comfortaa;-inkscape-font-specification:'Comfortaa, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#66b2b2;fill-opacity:1;stroke:none"
+     x="54.258415"
+     y="18.349207"
+     id="text819-1"
+     inkscape:transform-center-x="-30.503002"
+     inkscape:transform-center-y="-2.6914413"><tspan
+       sodipodi:role="line"
+       id="tspan817-6"
+       x="54.258415"
+       y="18.349207">sims</tspan><tspan
+       sodipodi:role="line"
+       x="54.258415"
+       y="41.682541"
+       id="tspan821-2" /></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12.33981228px;line-height:1.25;font-family:Comfortaa;-inkscape-font-specification:'Comfortaa, Light';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#006666;fill-opacity:1;stroke:none;stroke-width:0.92548597"
+     x="3.4336798"
+     y="30.694723"
+     id="text819-4"
+     inkscape:transform-center-x="-26.126563"
+     inkscape:transform-center-y="-2.6914412"
+     transform="scale(0.92548597,1.0805134)"><tspan
+       sodipodi:role="line"
+       id="tspan817-3"
+       x="3.4336798"
+       y="30.694723"
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12.33981228px;font-family:Comfortaa;-inkscape-font-specification:'Comfortaa, Light';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#004141;fill-opacity:1;stroke-width:0.92548597">verification report</tspan><tspan
+       sodipodi:role="line"
+       x="3.4336798"
+       y="46.119488"
+       id="tspan821-9"
+       style="stroke-width:0.92548597" /></text>
+</svg>
