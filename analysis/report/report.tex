@@ -1,43 +1,57 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[english,doc,floatsintext]{apa6}
+\documentclass[
+  english,
+  doc,floatsintext,draftall]{apa6}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
   \usepackage{unicode-math}
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\usepackage{hyperref}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-            pdftitle={Replication Report - Peters et al.~2006},
-            pdfauthor={Anna Lohmann1 \& Rolf H. H. Groenwold1,2},
-            pdfkeywords={keywords},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+  pdftitle={Replication Report - Peters et al.~2006},
+  pdfauthor={Anna Lohmann1 \& Rolf H. H. Groenwold1,2},
+  pdfkeywords={replication, replicability, simulation study, publication bias, meta-analysis, Egger's regression test, Peters' regression test},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -47,16 +61,23 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
-
-% set default figure placement to htbp
+% Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
 % Manuscript styling
 \usepackage{upgreek}
 \captionsetup{font=singlespacing,justification=justified}
@@ -99,14 +120,14 @@
   {}{\typeout{Failed to patch title.}}
 \makeatother
 \shorttitle{Replication Report}
-\keywords{keywords\newline\indent Word count: X}
+\keywords{replication, replicability, simulation study, publication bias, meta-analysis, Egger's regression test, Peters' regression test\newline\indent Word count: X}
 \usepackage{csquotes}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[shorthands=off,main=english]{babel}
-\else
-  % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+\ifxetex
+  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
   \usepackage{polyglossia}
   \setmainlanguage[]{english}
+\else
+  \usepackage[shorthands=off,main=english]{babel}
 \fi
 
 \title{Replication Report - Peters et al.~2006}
@@ -116,17 +137,15 @@
 
 \authornote{
 
-Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+Anna Lohmann, Department of Clinical Epidemiology, Leiden University Medical Center, Leiden, The Netherland.
 
-Enter author note here.
+Rolf H.H.Groenwold, Department of Clinical Epidemiology, Leiden University Medical Center, Leiden, The Netherland. Department of Biomedical Data Sciences, Leiden University Medical Center, Leiden, The Netherlands.
 
-The authors made the following contributions. Anna Lohmann: Conceptualization, Writing - Original Draft Preparation, Simulation implementation, Review \& Editing; Rolf H. H. Groenwold: Conceptualization - Review \& Editing.
-
-Correspondence concerning this article should be addressed to Anna Lohmann, Postal address. E-mail: \href{mailto:a.l.lohmann@lumc.nl}{\nolinkurl{a.l.lohmann@lumc.nl}}
+The authors made the following contributions. Anna Lohmann: Data Curation, Formal Analysis (lead), Investigation, Software, Visualization, Writing - Original Draft Preparation, Writing - Review \& Editing; Rolf H. H. Groenwold: Conceptualization, Formal Analysis (supporting), Funding Acquisition, Supervision, Writing - Review \& Editing.
 
 }
 
-\affiliation{\vspace{0.5cm}\textsuperscript{1} Department of Clinical Epidemiology, Leiden University Medical Center, Leiden, The Netherlands\\\textsuperscript{2} Rolf's second affiliation}
+\affiliation{\vspace{0.5cm}\textsuperscript{1,2} Leiden University Medical Center}
 
 \abstract{
 Some summary.
@@ -140,280 +159,523 @@ Some summary.
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-This replication report documents the replication attempt of Peters, J. L. (2006). Comparison of Two Methods to Detect Publication Bias in Meta-analysis. JAMA, 295(6), 676. \url{https://doi.org/10.1001/jama.295.6.676}
+This replication report documents the replication attempt of the simulation study Peters, J. L., Sutton, A. J., Jones, D. R., Abrams, K. R., \& Rushton, L. (2006). Comparison of Two Methods to Detect Publication Bias in Meta-analysis. \emph{JAMA}, 295(\emph{6}), 676--678. \url{https://doi.org/10.1001/jama.295.6.676} (Peters, Sutton, Jones, Abrams, \& Rushton, 2006).
 
-Section 2 will detail the sources of information utilized for the present replication attempt.
-Section 3 will provide an overview of the information that was extracted from those sources.
-Section 4 covers all Researcher degrees of freedom i.e.~decisions that had to be made by the replicators because of insufficient or contradicting information in the original sources.
+Section 2 details the sources of information utilized for the present replication attempt.
+Section 3 provides an overview of the information that was extracted from those sources.
+Section 4 covers all researcher degrees of freedom, i.e.~decisions that had to be made by the replicators because of insufficient or contradicting information in the original sources.
 Section 5 presents descriptive statistics from the data generating mechanism, i.e.~the artificial sample.
 Section 6 presents the replicated results.
-
-\hypertarget{information-basis}{%
-\section{Information basis}\label{information-basis}}
-
-The information upon which the replication was based stems from two different sources (1) the published manuscript as well as (2) a technical report.
-The published manuscript mentioned that details of the simulation were available in a technical report.
-This technical report is listed in the reference section of the published article, however it was not obtainable from the public domain (i.e.~online line supplements or a public online repository).
-The technical report {[}Peters, J. L., Sutton, A. J., Jones, D. R., Abrams, K. R., \& Rushton, L. (2005). Performance of tests and adjustments for publication bias in the presence of heterogeneity (Technical Report No.~05--01; pp.~1--57). Department of Health Sciences, University of Leicester.{]} was hence obtained by email from the Department of Health Sciences at Leister University (\href{mailto:hsenquiries@leicester.ac.uk}{\nolinkurl{hsenquiries@leicester.ac.uk}}). Conflicting or insufficient information from there two sources were supplemented with information from referenced articles in either manuscript as well as similar publications on the topic by the same authors.
-
-\hypertarget{extracted-information}{%
-\section{Extracted Information}\label{extracted-information}}
-
-The following information pertaining to the implementation of the simulation study was extracted from the above mentioned sources:
-
-\hypertarget{data-generating-mechanism}{%
-\subsection{Data generating mechanism}\label{data-generating-mechanism}}
-
-\hypertarget{fixed-effects-model-is-given-by}{%
-\subsubsection{fixed effects model is given by}\label{fixed-effects-model-is-given-by}}
-
-\(y_i=\theta + \epsilon_i\)
-where \(\theta\) is the true underlying effect lnOR
-
-\hypertarget{random-effects-model}{%
-\subsubsection{random effects model}\label{random-effects-model}}
-
-\(y_i = \theta_i + \epsilon_i\)
-with \(\theta_i~ N(\mu,\tau^2)\)
-where \(\theta_i\) is the true effect in study \(i\)
-\(\mu\) true underlying effect lnOR
-\(\tau^2\) is the between-study variance
-
-Between-study variance is defined to be 20\%, 150, and 500\% of the average within-study variance for studies from the corresponding simulations
-this compares with specifications of \(I^2\), describing the percentage of total variation across studies that is due to between-study heterogeneity rather than chance (ref 25). Here 20\%, 150\% and 500 \% of the within-study variation corresponds to an \(I^2\) of 16.7\%, 60\% and 83\% respectively.
+Section 7 Discusses the replication attempst with reagrds to general replicability, replicator degrees of freedom and equivalence of results.
+The appendix contains the README file providing an overview of the accompanying code.
 
 \hypertarget{method}{%
-\subsection{Method}\label{method}}
+\section{Method}\label{method}}
 
-\hypertarget{data-generating-mechanism-1}{%
-\subsubsection{Data generating mechanism}\label{data-generating-mechanism-1}}
+\hypertarget{information-basis}{%
+\subsection{Information basis}\label{information-basis}}
 
-1000 repetitions per scenario
+The information upon which the replication is based stems from two different sources (1) the published manuscript (Peters et al., 2006) (referred to as \emph{article}) as well as (2) a technical report (Peters, Sutton, Jones, Abrams, \& Rushton, 2005).
+The published article is fairly short and repeatedly refers to details obtainable from a technical report.
+The technical report is listed in the reference section of the published article, however it was not available from the public domain (i.e.~online line supplements or a public online repository).
+The technical report was hence requested and obtained by email from the Department of Health Sciences at Leister University (\href{mailto:hsenquiries@leicester.ac.uk}{\nolinkurl{hsenquiries@leicester.ac.uk}}).
 
-\hypertarget{simulation-factors}{%
-\subsubsection{Simulation factors}\label{simulation-factors}}
+\hypertarget{data-generating-mechanism}{%
+\subsection{Data Generating Mechanism}\label{data-generating-mechanism}}
 
 The following table shows an overview of simulation factors.
 
-\begin{longtable}[]{@{}lllll@{}}
+\begin{longtable}[]{@{}lll@{}}
 \toprule
-\begin{minipage}[b]{0.20\columnwidth}\raggedright
+\begin{minipage}[b]{0.37\columnwidth}\raggedright
 Simulation factor\strut
-\end{minipage} & \begin{minipage}[b]{0.35\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{0.12\columnwidth}\raggedright
+No.~levels\strut
+\end{minipage} & \begin{minipage}[b]{0.43\columnwidth}\raggedright
 Levels\strut
-\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
-Implementation details\strut
-\end{minipage} & \begin{minipage}[b]{0.04\columnwidth}\raggedright
-Source\strut
-\end{minipage} & \begin{minipage}[b]{0.01\columnwidth}\raggedright
-\strut
 \end{minipage}\tabularnewline
 \midrule
 \endhead
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
-Varied\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+\begin{minipage}[t]{0.37\columnwidth}\raggedright
+\emph{Varied}\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
 \strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
 \strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
+\begin{minipage}[t]{0.37\columnwidth}\raggedright
 Publication bias\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
-none, effect size based moderate (14\%), effect size based severe (40\%), p-value based moderate, p-value based severe (see table below)\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
-\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
+none, effect size based moderate (14\%), effect size based severe (40\%), p-value based moderate, p-value based severe\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
+\begin{minipage}[t]{0.37\columnwidth}\raggedright
 True effect size (OR)\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
 1, 1.2, 1.5, 3, 5\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
-\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
+\begin{minipage}[t]{0.37\columnwidth}\raggedright
 Between Study Heterogeneity (\(I^2\))\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
 0, 20, 150, 500 (0, 16.7\%, 60\%, 83.3\%)\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-percentage of the average within-study variance estimate\strut
-\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
-\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
+\begin{minipage}[t]{0.37\columnwidth}\raggedright
 Number of primary studies in meta-analysis\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
 6, 16, 30, 90\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-this number corresponds to the number of studies after publication bias\strut
-\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.37\columnwidth}\raggedright
+\emph{Fixed}\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
 \strut
-\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
 \strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
+\begin{minipage}[t]{0.37\columnwidth}\raggedright
 Sample size control group\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
 exponential of the normal distribution with a mean of 5 and variance of 0.3\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
-\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
-Fixed\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
-\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
+\begin{minipage}[t]{0.37\columnwidth}\raggedright
 Ratio treatment:control group\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
 1:1\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
-\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
+\begin{minipage}[t]{0.37\columnwidth}\raggedright
 Probability of event in control group\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
 sampled from unif(0.3, 0.7)\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.01\columnwidth}\raggedright
-\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
 \hypertarget{publication-bias}{%
-\paragraph{Publication bias}\label{publication-bias}}
+\subsubsection{Publication bias}\label{publication-bias}}
+
+Five different levels of publication bias were implemented. No publication bias, moderate p-value based publication bias, severe p-value based publication bias, moderate effect-size based publication bias as well as severe effect-size based publication bias.
+Details regarding the iplementation of each of these levels was obtained from the technical report (p.15, p.~20). The original article only mentions that funnel plot asymmetry was \enquote{{[}\ldots{]} induces in 2 ways. First, it was induced on the basis of the \{ valie associated with a stugy's effect size (the larger the P value the more likely that study was excluded from the meta-analysis).{[}\ldots{]} publication bias was also induced on the basis of study effect size with tthe most extreme negative effect sizes were excluded from the meta-analysis.}(p.677)\}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   studies are censored as a result of the one-sided p-value associated with the effect estimate of interest
+  The p-value based selection probability is given in the following table (table 2, report p.~15)
+\end{enumerate}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Severity of publication bias & p-value & Selection Probability\tabularnewline
+\midrule
+\endhead
+Moderate & \textless0.05 & 1\tabularnewline
+& 0.05 - 0.2 & 0.75\tabularnewline
+& 0.2-0.5 & 0.5\tabularnewline
+& \textgreater0.5 & 0.25\tabularnewline
+Severe & \textless0.05 & 1\tabularnewline
+& 0.05-0.2 & 0.75\tabularnewline
+& \textgreater0.2 & 0.25\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   studies with the most extreme effect estimates of effect are censored
 \end{enumerate}
 
+\hypertarget{true-effect}{%
+\subsubsection{True effect}\label{true-effect}}
+
+Fixed effects model is given by
+\(y_i=\theta + \epsilon_i\)
+where \(\theta\) is the true underlying effect lnOR
+
+Random effects model
+\(y_i = \theta_i + \epsilon_i\)
+with \(\theta_i~ N(\mu,\tau^2)\)
+where \(\theta_i\) is the true effect in study \(i\)
+\(\mu\) true underlying effect lnOR
+\(\tau^2\) is the between-study variance
+
+\hypertarget{between-study-heterogeneity}{%
+\subsubsection{Between Study Heterogeneity}\label{between-study-heterogeneity}}
+
+Between-study variance is defined to be 20\%, 150, and 500\% of the average within-study variance for studies from the corresponding simulations.
+This compares with specifications of \(I^2\), describing the percentage of total variation across studies that is due to between-study heterogeneity rather than chance (ref 25). Here 20\%, 150\% and 500 \% of the within-study variation corresponds to an \(I^2\) of 16.7\%, 60\% and 83\% respectively.
+
+\hypertarget{size-of-control-group}{%
+\subsubsection{Size of control group}\label{size-of-control-group}}
+
+The number of participants in the control group of a given single study is sampled from the exponential of a normal distribution with a mean of 5 and a variance of 0.3 (article p.~677).
+The technical report gives \(N(5, 0.3)\) as the distribution from which the number of control groups within each primary study is taken (report p.15). As this does not make much sense we interpreted it as a typo and followed the information from the original article.
+
+\hypertarget{repetitions}{%
+\subsubsection{Repetitions}\label{repetitions}}
+
+Each of the 400 unique scenarios were repeted 1000 times.
+
+\hypertarget{data-generating-progress}{%
+\subsubsection{Data generating progress}\label{data-generating-progress}}
+
+Figure 1 provides a flow chart with an overview of the data generating process.
+
+\begin{figure}
+\centering
+\includegraphics[width=6.14583in,height=\textheight]{../figures/flow_chart.png}
+\caption{Flow chart of data generating mechanism}
+\end{figure}
+
+Data generation can be summarized with the following pseudocode:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{For\ 1000\ repetitions\ of\ each\ of\ 400\ unique\ scenarios:}
+\item
+  \texttt{Set\ unique\ seed\ based\ on\ scenario\ id\ and\ number\ of\ repetition.}
+\item
+  \texttt{Simulate\ an\ unbiased\ study\ set\ based\ on\ the\ control\ group\ event\ probability.}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{While\ number\ of\ selected\ studies\ \textless{}\ number\ of\ required\ studies\ for\ given\ scenario:}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \texttt{Sample\ an\ event\ probability\ for\ the\ control\ group\ from\ the\ given\ distribution.}
+    \item
+      \texttt{Sample\ a\ sample\ size\ from\ the\ given\ distribution.}
+    \item
+      \texttt{Compute\ the\ remaining\ study\ characteristics\ based\ on\ these\ random\ elements.}
+    \item
+      \texttt{Determine\ selection\ indicator\ based\ on\ publication\ bias\ mechnism\ of\ current\ scenario.}
+    \end{itemize}
+  \end{itemize}
+\item
+  \texttt{If\ heterogeneity\ of\ present\ scenario\ is\ \textgreater{}\ 1:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{Determine\ original\ between-study\ variability\ \&\ resample\ from\ corresponding\ random\ effects\ model.}
+  \end{itemize}
+\item
+  \texttt{Apply\ publication\ bias.}
+\end{itemize}
+
 \hypertarget{compared-methods}{%
-\subsubsection{Compared Methods}\label{compared-methods}}
+\subsection{Compared Methods}\label{compared-methods}}
 
-\hypertarget{model-1-eggers-fixed-effects-regression-on-the-standard-error}{%
-\paragraph{Model 1 ( Egger's fixed effects regression on the standard error)}\label{model-1-eggers-fixed-effects-regression-on-the-standard-error}}
+The study compares two regression tests for the detection of publication bias in meta-analyses.
+The first Egger's regression test regresses the standardized effect estimate on a measure of precision (see equation 1).
+The second (referred to as "alternative regression test in the original article) ia a variation of Macaskill's test and regresses the effect size on the inverse of the total sample size (see equation 2).
+We refer to this test as Peter's regression test in the present report.
 
-Egger's regression test is given by
-\(\frac{y_i}{se_i}= \beta + \frac{\alpha}{se_i}+\epsilon_i\)
+\hypertarget{eggers-regression-test}{%
+\subsubsection{Egger's regression test}\label{eggers-regression-test}}
 
-which is equivalent to
+\(\frac{y_i}{se_i}= \beta + \frac{\alpha}{se_i}+\epsilon_i\) which is equivalent to
 \(y_i = \alpha +\beta \cdot se_i +\epsilon_i \cdot se_i\) weighted by \(\frac{1}{se_i^2}\)
-
 where \(y_i\) is the lnOR from study i and \(se_i\) is the standard error of \(y_i\)
+(report p.~22)
 
-\hypertarget{model-2-eggerts-fixed-regression-on-the-inverse-of-sample-size}{%
-\paragraph{Model 2 (Eggert's fixed regression on the inverse of sample size)}\label{model-2-eggerts-fixed-regression-on-the-inverse-of-sample-size}}
+\hypertarget{peters-regression-test}{%
+\subsubsection{Peter's regression test}\label{peters-regression-test}}
 
-\(y_i \cdot size_i = \alpha +\beta \cdot size_i +\epsilon_i\)
+\(y_i = \alpha +\frac{\beta}{size_i} + \epsilon_i\) weighted by \((\frac{1}{A+B}+\frac{1}{C+D})^{-1}\)
+(report p.23)
 
 \hypertarget{performance-measures}{%
 \subsection{Performance measures}\label{performance-measures}}
 
-Type 1 error rate (proportion of false positives)
-Power to detect publication bias when it is present (proportion of true positive results)
+The original study compares the prformance of the two regression tests on the basis of type I error rates and power.
+The type 1 error rate (proportion of false positives) is defined as statistical significance specified from a 2-tailed test at \(p<.10\) (article p.~678).
 
-\hypertarget{researcher-degrees-of-freedom}{%
-\section{Researcher degrees of Freedom}\label{researcher-degrees-of-freedom}}
+\hypertarget{technical-implementation}{%
+\subsection{Technical implementation}\label{technical-implementation}}
+
+While the original simulation study was carried out in STATA 8.2 our replication was implemented
+using the R programming environment (details regarding software versions can be obtained from the section Repruducibility Information).
+The corresponding R code can be obtained from \url{https://github.com/replisims/peters-2016}.
+
+\hypertarget{replicator-degrees-of-freedom}{%
+\section{Replicator degrees of freedom}\label{replicator-degrees-of-freedom}}
+
+The following table provides an overview of replicator degrees of freedom, i.e.~decisions that had to be made by the replicators because of insufficient or contradicting information.
+Issues were resolved by discussion among the replicators.
+Dessisions were based on what the replicators perceived to be the most likely implementation with likeliness estimated by common practice and/or guideline recomendations.
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
-\begin{minipage}[b]{0.32\columnwidth}\raggedright
-Not specified\strut
-\end{minipage} & \begin{minipage}[b]{0.44\columnwidth}\raggedright
+\begin{minipage}[b]{0.33\columnwidth}\raggedright
+Issue\strut
+\end{minipage} & \begin{minipage}[b]{0.33\columnwidth}\raggedright
 Replicator decision\strut
-\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{0.25\columnwidth}\raggedright
 Justification\strut
 \end{minipage}\tabularnewline
 \midrule
 \endhead
-\begin{minipage}[t]{0.32\columnwidth}\raggedright
+\begin{minipage}[t]{0.33\columnwidth}\raggedright
 Dealing with empty cells\strut
-\end{minipage} & \begin{minipage}[t]{0.44\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
 add 0.5 to every empty cell\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
-common solution\strut
+\end{minipage} & \begin{minipage}[t]{0.25\columnwidth}\raggedright
+Common practice\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{0.32\columnwidth}\raggedright
+\begin{minipage}[t]{0.33\columnwidth}\raggedright
 Which set to compute average within-study-variance on\strut
-\end{minipage} & \begin{minipage}[t]{0.44\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
 largest number of studies generated before application of publication bias\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
-Most accurate correspondance to intended I\^{}2\strut
+\end{minipage} & \begin{minipage}[t]{0.25\columnwidth}\raggedright
+Most accurate correspondance to intended \(I^2\)\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{0.32\columnwidth}\raggedright
+\begin{minipage}[t]{0.33\columnwidth}\raggedright
 Data dependence\strut
-\end{minipage} & \begin{minipage}[t]{0.44\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
 each scenario is implemented in independently generated data\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
-Recomendatios of Burton et al.\strut
+\end{minipage} & \begin{minipage}[t]{0.25\columnwidth}\raggedright
+Best practice (Burton, Altman, Royston, \& Holder, 2006)\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{0.32\columnwidth}\raggedright
-Is probability of event in control-group fixed for all studies in one meta-analysis?\strut
-\end{minipage} & \begin{minipage}[t]{0.44\columnwidth}\raggedright
+\begin{minipage}[t]{0.33\columnwidth}\raggedright
+Fixed probability of event in control-group for all studies in one MA\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
 Probability of event in CG assumed as fixed\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
-Wording was not unambigous but both authors tended towards that interpretation\strut
+\end{minipage} & \begin{minipage}[t]{0.25\columnwidth}\raggedright
+All replicators tended towards that interpretation\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.33\columnwidth}\raggedright
+Exact scenario depicted in results\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+Present multiple result subsetting\strut
+\end{minipage} & \begin{minipage}[t]{0.25\columnwidth}\raggedright
+Easy to implement alternative interpreations\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
+\hypertarget{empty-cells}{%
+\subsection{Empty cells}\label{empty-cells}}
+
+In the simulation of individual studies it is possible (albeit unlikely) for either the exposed group or the control group to not have any events (or no non-events).
+This would make it impossible to compute the necessary parameters to continue the simulation.
+Neither the original article nor the technical report report whether such a case ever occured and if so how it was dealt with.
+We implemented the replication such that 0.5 is added to empty cells.
+
+\hypertarget{simulation-of-between-study-heterogeneity}{%
+\subsection{Simulation of between-study heterogeneity}\label{simulation-of-between-study-heterogeneity}}
+
+\emph{\enquote{The between-study heterogeneity parameter was calculated as a percentage of the average within-study variance estimate. From the fixed- effects model, the average within study variance was calculated and between-study heterogeneity was then defined to be 20\%, 150\% and 500\%\% of the within-study estimate.}}
+
+It is unclear from which fixed-effects model the average within study variance was calculated (e.g.~what was the number of studies).
+We interpreted this passage to refer to the fixed-effects model with the same parameter constellation (i.e.~the same OR and number of studies).
+The random effects model was then redrawn after the average within-study variance was obtained.
+It is furthermore unclear whether the average within-study variance was obtained before or after the application of publication bias.
+In our replication we assumed it was before.
+
 \hypertarget{publication-bias-based-on-effect-size}{%
 \subsection{Publication bias based on effect size}\label{publication-bias-based-on-effect-size}}
 
-two levels
-moderate vs severe
-\textgreater{} either 14\% or 40 \% of the most extreme studies showing a negative effect of the exposure (i.e.~OR \textless{}1)
-were censored such that the final number of studies in a meta -analysis was still 6, 16, 30, or 90
-i.e.~for the 6 studies 10 haven been generated and 4 studies with the most extreme negative estimates have been censored
+The technical report describes the effect size based publication bias as follows:
+\emph{\enquote{either 14\% or 40 \% of the most extreme studies showing a negative effect of the exposure (i.e.~OR \textless1) were censored such that the final number of studies in a meta -analysis was still 6, 16, 30, or 90 i.e.~for the 6 studies 10 haven been generated and 4 studies with the most extreme negative estimates have been censored}} The article similarly states \emph{\enquote{Studies with the most extreme negative effect sizes were excluded from the meta-analysis}} (p.677).
 
-This statement contradicts itself. On the one hand it suggests, that extreme studies with a negative effect of the exposure should be censored.
-On the other hand it suggests to censor either 14\% or 40\% of studies. Especially with large effect sized (e.g.~an OR of 5) it is highly unlikely to have 40\% of studies with a negative effect of the exposure.
+These statements are contradictory.
+On the one hand it is suggested, that extreme studies with a negative effect of the exposure should be censored.
+On the other hand it suggests to censor either 14\% or 40\% of studies.
+Especially with large effect sized (e.g.~an OR of 5) it is highly unlikely to have 40\% of studies with a negative effect of the exposure.
+We hence ignored the \enquote{negative effect} aspect and interpreted the author's intention to be the exclusion of 14\% and 40\% of studies irrespective of the sign of the effect.
 
-\hypertarget{simulation-descriptives}{%
-\section{Simulation Descriptives}\label{simulation-descriptives}}
+\hypertarget{data-dependence}{%
+\subsection{Data dependence}\label{data-dependence}}
+
+The number of studies in the meta-analysis is one of the simulation parameters.
+As in every simulation study with sample size as one of the varied parameters the question arises whether the samples are dependent (i.e.~smaller samples being subsamples of larger samples) or independent (i.e.~each scenario independently sampled).
+We could not find information regarding this in neither the original article nor the technical report.
+We hence implemented each scenrio as an independant sampling which is in line with current best practice recommendations (Burton et al., 2006).
+
+\hypertarget{exact-scenario-depicted-in-results}{%
+\subsection{Exact scenario depicted in results}\label{exact-scenario-depicted-in-results}}
+
+The results are faceted by heterogeneity and method of inducing publication bias.
+The plots are labelled with \emph{\enquote{publication bias induced by p-value}} and \emph{\enquote{publication bias induced by effect size}} correspondingly.
+This suggests that results were collapsed over the severity of bias.
+However, the following quote makes it seem like the results might only be depicted for severe bias:
+\emph{"Power to detect \enquote{moderate} publication bias is lower than that to detect \enquote{severe} publication bias for all models. However, the same general trend in power is seen for \enquote{moderate} publication bias as the level of between-study heterogeneity increases, as it is for severe publication bias (results not shown).}
+It is unclear whether \emph{\enquote{(results not shown)}} refers to the entirety of this passage (i.e.~the comparison of moderate vs severe bias is not shown) or wheter it means to imply that all results depicted pertain to severe publication bias.
+An additional passage suggests that indeed only severe publication bias might be plotted: \emph{\enquote{Model 4c has relatively good power to detect severe publication bias when there is no betwen-study heterogeneity compared to the other models, regardless of how publication bias is induced (Figures 10 and 11)}} (p.31-32 technical report). The article does not make a distinction between moderate and severe publication bias.
+We resolve this problem by presenting figures for severe publication bias which seems the most likely choice based on the quotes provided above.
+Additional figures for both collapsed publication bias as well as moderate publication bias are presented in the Appendix.
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
+\hypertarget{simulation-descriptives}{%
+\subsection{Simulation descriptives}\label{simulation-descriptives}}
+
+The technical report presents a figure showing the mean number of studies generated to obtain the number of studies required under \enquote{moderate} and \enquote{severe} bias (figure 2, p.17)
+This closely corresponds to the numbers found in the replication.
+\includegraphics{../figures/studies_generated.png}
+
+\hypertarget{as-detailed-above-the-exact-procedure-to-simulate-the-heterogeneity-was-not-sufficiently-described-in-neither-the-article-nor-the-technical-report.-the-following-figure-shows-the-intended-i2-compared-to-the-observed-i2-for-a-given-meta-analysis-both-before-as-well-as-after-the-applicaiton-of-publication-bias.}{%
+\subsection{\texorpdfstring{As detailed above the exact procedure to simulate the heterogeneity was not sufficiently described in neither the article nor the technical report. The following figure shows the intended \(I^2\) compared to the observed \(I^2\) for a given meta-analysis both before as well as after the applicaiton of publication bias.}{As detailed above the exact procedure to simulate the heterogeneity was not sufficiently described in neither the article nor the technical report. The following figure shows the intended I\^{}2 compared to the observed I\^{}2 for a given meta-analysis both before as well as after the applicaiton of publication bias.}}\label{as-detailed-above-the-exact-procedure-to-simulate-the-heterogeneity-was-not-sufficiently-described-in-neither-the-article-nor-the-technical-report.-the-following-figure-shows-the-intended-i2-compared-to-the-observed-i2-for-a-given-meta-analysis-both-before-as-well-as-after-the-applicaiton-of-publication-bias.}}
+
+\includegraphics{../figures/i_squared_unbiased.png}
+\includegraphics{../figures/i_squared_biased.png}
+
+\hypertarget{replication-of-result-figures}{%
+\subsection{Replication of result figures}\label{replication-of-result-figures}}
+
+The following table provides an overview of figures related to central outcomes od the original study.
+
+Overview of result figures in simulation report
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+Performance measure\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Test\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Scenario\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Type I error rate\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Egger's regression test\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+all\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Type I error rate\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Peter's regression test\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+no heterogeneity\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Type I error rate\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Peter's regression test\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+500\% heterogeneity\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Power\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Both\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+(severe ?) publication bias induced by effect size, no heterogeneity\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Power\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Both\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+(severe ?) publication bias induced by p-value, no heterogeneity\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Power\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Both\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+(severe ?) publication bias induced by p-value, OR 1,1.5 \& 5, all heterogeneity levels\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Power\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Both\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+(severe?) publication bias induced by effect size, 500\% heterogeneity\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Power\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Both\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+(severe?) publication bias induced by p-value, 500\% heterogeneity\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{figure}
+\includegraphics[width=300pt]{../figures/type_1_error} \caption{Type I error rate}\label{fig:unnamed-chunk-1}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=300pt]{../figures/power_p_severe} \caption{Power to detect severe publication bias induced by p-value}\label{fig:unnamed-chunk-2}
+\end{figure}
+
+\hypertarget{replication-of-results-presented-in-text-form}{%
+\subsection{Replication of results presented in text form}\label{replication-of-results-presented-in-text-form}}
+
+\emph{\enquote{However, in Model 4c {[}which correponds to the alternative test{]} we have a test that is superior to Egger's test in terms of expected type I error, but which also has good power to detect publication bias (equal to that of Egger's test), regardless of the amount of between-study heterogeneity.}} (report p.~46)
+
+The superiority in terms of type one error rates can be clearly seen in our replication.
+While Peter's and colleagues do not specify their definition of \enquote{equal},
+the power of Peter's test by no means seems equal to Egger's regression test.
+
+\emph{\enquote{When there is little between-study heterogeneity, the alternative regression test and Egger's regression test appear to have moderate power to detect asymmetry when it is induced on the basis of P value (Figure 3) and high power when asymmetry is induced on the magniture of the effect (data not shown).}} (article page 679)
+
+While the authors do not define their definition of \enquote{moderate power} and \enquote{high power} we would not use these attributes to describe the results of our replication,
+at least not in respect to Peter's test.
+The wording furthermore seems to imply that the power of both tests is of a comparable magnitude which clearly does not seem to be the case in our replication.
+
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
+
+\hypertarget{replicability}{%
+\subsection{Replicability}\label{replicability}}
+
+The original JAMA article is merely five pages long (including figures and references).
+Consequently the article repeatedly refers to the technical report for details.
+A total of 10 references to the technical report illustrate that replication merely based on the article would not have ben feasible.
+Crutial implementation details such as details about how publication bias was induced are missing from the published manuscript.
+While unfortunately not availible in the public domain we were able to obtain the technical report from the corresponding institution.
+Fourteen years after publication this is commendable on parts of the department.
+The technical report, which comprises 57 pages, does contain sufficient information for a replication.
+A few details were, however, described in insufficient detail or using language that leaves room for interpretation on the part of the replicators.
+
+\hypertarget{replicator-degrees-of-freedom-1}{%
+\subsection{Replicator degrees of freedom}\label{replicator-degrees-of-freedom-1}}
+
+The information that we found to be ambiguous or insufficient has to be interpreted from our unique perspective.
+Other researchers with a different background (i.e.~different expertise, different language context, different point in history) might have encountered other uncertainties.
+Furthermore, the fact that we found a certain aspect to be \enquote{clear} does not ensure correctness of our interpretation neither does finding something unclear automatically imply that our implementation was wrong.
+Most replicator degrees of freedom concern the data generation.
+Only one uncertainty is related to the scenarios the result presention was based on.
+The latter can easily be addressed by presenting the results in a multitute of ways.
+Variation in the data generation is more complex to address.
+In addition to the complexity of implementing several different interpretations (and their combinations) each full simulation run takes considerable computational resources.
+The present simulation was comparably \enquote{cheap} with about eight hours of computation time.
+The present replication hence only includes our \enquote{best guess} of what might have been the original authors intentions.
+
+\hypertarget{equivalence-of-results}{%
+\subsection{Equivalence of results}\label{equivalence-of-results}}
+
+The mean number of studies generated per scenario seems to match that of the original study (compare figure X of this report and figure 2 of the technical report).
+This indicates that we were able to replicate the data generation based on the p-value based publications bias.
+Overall results regarding power and type one error match the original articels.
+Due to the above mentioned impresions regarding the bias type displayed in certain result figures it is hard to tell which figures should correspond to each other.
 
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
@@ -430,80 +692,104 @@ On the other hand it suggests to censor either 14\% or 40\% of studies. Especial
 \setlength{\leftskip}{0.5in}
 
 \hypertarget{refs}{}
+\leavevmode\hypertarget{ref-burton_design_2006}{}%
+Burton, A., Altman, D. G., Royston, P., \& Holder, R. L. (2006). The design of simulation studies in medical statistics. \emph{Statistics in Medicine}, \emph{25}(24), 4279--4292. \url{https://doi.org/10.1002/sim.2673}
+
+\leavevmode\hypertarget{ref-peters_performance_2005}{}%
+Peters, J. L., Sutton, A. J., Jones, D. R., Abrams, K. R., \& Rushton, L. (2005). \emph{Performance of tests and adjustments for publication bias in the presence of heterogeneity} (Technical Report No. 05-01) (pp. 1--57). Leicester: Department of Health Sciences, University of Leicester.
+
+\leavevmode\hypertarget{ref-peters_comparison_2006}{}%
+Peters, J. L., Sutton, A. J., Jones, D. R., Abrams, K. R., \& Rushton, L. (2006). Comparison of Two Methods to Detect Publication Bias in Meta-analysis. \emph{JAMA}, \emph{295}(6), 676--678. \url{https://doi.org/10.1001/jama.295.6.676}
 
 \newpage
+
+\hypertarget{appendix}{%
+\section{Appendix}\label{appendix}}
+
+\hypertarget{additonal-result-plots}{%
+\subsection{Additonal result plots}\label{additonal-result-plots}}
+
+\begin{figure}
+\includegraphics[width=300pt]{../figures/power_p_moderate} \caption{Power to detect severe publication bias induced by p-value}\label{fig:unnamed-chunk-3}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=300pt]{../figures/power_es_severe} \caption{Power to detect severe publication bias induced by p-value}\label{fig:unnamed-chunk-4}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=300pt]{../figures/power_es_moderate} \caption{Power to detect severe publication bias induced by p-value}\label{fig:unnamed-chunk-5}
+\end{figure}
 
 \hypertarget{reproducibility-information}{%
 \subsubsection{Reproducibility Information}\label{reproducibility-information}}
 
-This report was last updated on 2020-08-04 20:35:51.
+This report was last updated on 2020-09-07 21:08:16.
 The simulation replication was conducted using the following computational environment and dependencies:
 
 \begin{verbatim}
 #> - Session info ---------------------------------------------------------------
 #>  setting  value                       
-#>  version  R version 3.6.2 (2019-12-12)
-#>  os       Ubuntu 18.04.3 LTS          
-#>  system   x86_64, linux-gnu           
-#>  ui       X11                         
+#>  version  R version 3.6.3 (2020-02-29)
+#>  os       Windows 10 x64              
+#>  system   x86_64, mingw32             
+#>  ui       RTerm                       
 #>  language (EN)                        
-#>  collate  en_US.UTF-8                 
-#>  ctype    en_US.UTF-8                 
+#>  collate  English_United States.1252  
+#>  ctype    English_United States.1252  
 #>  tz       Europe/Berlin               
-#>  date     2020-08-04                  
+#>  date     2020-09-07                  
 #> 
 #> - Packages -------------------------------------------------------------------
 #>  package     * version    date       lib source                      
-#>  assertthat    0.2.1      2019-03-21 [1] CRAN (R 3.6.2)              
-#>  backports     1.1.8      2020-06-17 [1] CRAN (R 3.6.2)              
-#>  bookdown      0.20       2020-06-23 [1] CRAN (R 3.6.2)              
-#>  callr         3.4.3      2020-03-28 [1] CRAN (R 3.6.2)              
-#>  cli           2.0.2      2020-02-28 [1] CRAN (R 3.6.2)              
-#>  crayon        1.3.4      2017-09-16 [1] CRAN (R 3.6.2)              
-#>  desc          1.2.0      2018-05-01 [1] CRAN (R 3.6.2)              
-#>  devtools      2.3.0      2020-04-10 [1] CRAN (R 3.6.2)              
-#>  digest        0.6.25     2020-02-23 [1] CRAN (R 3.6.2)              
-#>  ellipsis      0.3.1      2020-05-15 [1] CRAN (R 3.6.2)              
-#>  evaluate      0.14       2019-05-28 [1] CRAN (R 3.6.2)              
-#>  fansi         0.4.1      2020-01-08 [1] CRAN (R 3.6.2)              
-#>  fs            1.4.1      2020-04-04 [1] CRAN (R 3.6.2)              
-#>  glue          1.4.1      2020-05-13 [1] CRAN (R 3.6.2)              
-#>  htmltools     0.5.0      2020-06-16 [1] CRAN (R 3.6.2)              
-#>  knitr         1.29       2020-06-23 [1] CRAN (R 3.6.2)              
-#>  magrittr      1.5        2014-11-22 [1] CRAN (R 3.6.2)              
-#>  memoise       1.1.0      2017-04-21 [1] CRAN (R 3.6.2)              
-#>  papaja      * 0.1.0.9997 2020-08-04 [1] Github (crsh/papaja@0457653)
-#>  pkgbuild      1.0.8      2020-05-07 [1] CRAN (R 3.6.2)              
-#>  pkgload       1.0.2      2018-10-29 [1] CRAN (R 3.6.2)              
-#>  prettyunits   1.1.1      2020-01-24 [1] CRAN (R 3.6.2)              
-#>  processx      3.4.2      2020-02-09 [1] CRAN (R 3.6.2)              
-#>  ps            1.3.3      2020-05-08 [1] CRAN (R 3.6.2)              
-#>  R6            2.4.1      2019-11-12 [1] CRAN (R 3.6.2)              
-#>  remotes       2.1.1      2020-02-15 [1] CRAN (R 3.6.2)              
-#>  rlang         0.4.7      2020-07-09 [1] CRAN (R 3.6.2)              
-#>  rmarkdown     2.3        2020-06-18 [1] CRAN (R 3.6.2)              
-#>  rprojroot     1.3-2      2018-01-03 [1] CRAN (R 3.6.2)              
-#>  sessioninfo   1.1.1      2018-11-05 [1] CRAN (R 3.6.2)              
+#>  assertthat    0.2.1      2019-03-21 [1] CRAN (R 3.6.3)              
+#>  backports     1.1.6      2020-04-05 [1] CRAN (R 3.6.3)              
+#>  bookdown      0.18       2020-03-05 [1] CRAN (R 3.6.3)              
+#>  callr         3.4.3      2020-03-28 [1] CRAN (R 3.6.3)              
+#>  cli           2.0.2      2020-02-28 [1] CRAN (R 3.6.3)              
+#>  crayon        1.3.4      2017-09-16 [1] CRAN (R 3.6.3)              
+#>  desc          1.2.0      2018-05-01 [1] CRAN (R 3.6.3)              
+#>  devtools      2.3.0      2020-04-10 [1] CRAN (R 3.6.3)              
+#>  digest        0.6.25     2020-02-23 [1] CRAN (R 3.6.3)              
+#>  ellipsis      0.3.1      2020-05-15 [1] CRAN (R 3.6.3)              
+#>  evaluate      0.14       2019-05-28 [1] CRAN (R 3.6.3)              
+#>  fansi         0.4.1      2020-01-08 [1] CRAN (R 3.6.3)              
+#>  fs            1.4.1      2020-04-04 [1] CRAN (R 3.6.3)              
+#>  glue          1.4.1      2020-05-13 [1] CRAN (R 3.6.3)              
+#>  htmltools     0.5.0      2020-06-16 [1] CRAN (R 3.6.3)              
+#>  knitr         1.29       2020-06-23 [1] CRAN (R 3.6.3)              
+#>  magrittr      1.5        2014-11-22 [1] CRAN (R 3.6.3)              
+#>  memoise       1.1.0      2017-04-21 [1] CRAN (R 3.6.3)              
+#>  papaja      * 0.1.0.9997 2020-08-25 [1] Github (crsh/papaja@0457653)
+#>  pkgbuild      1.0.7      2020-04-25 [1] CRAN (R 3.6.3)              
+#>  pkgload       1.0.2      2018-10-29 [1] CRAN (R 3.6.3)              
+#>  prettyunits   1.1.1      2020-01-24 [1] CRAN (R 3.6.3)              
+#>  processx      3.4.2      2020-02-09 [1] CRAN (R 3.6.3)              
+#>  ps            1.3.2      2020-02-13 [1] CRAN (R 3.6.3)              
+#>  R6            2.4.1      2019-11-12 [1] CRAN (R 3.6.3)              
+#>  remotes       2.1.1      2020-02-15 [1] CRAN (R 3.6.3)              
+#>  rlang         0.4.6      2020-05-02 [1] CRAN (R 3.6.3)              
+#>  rmarkdown     2.3        2020-06-18 [1] CRAN (R 3.6.3)              
+#>  rprojroot     1.3-2      2018-01-03 [1] CRAN (R 3.6.3)              
+#>  sessioninfo   1.1.1      2018-11-05 [1] CRAN (R 3.6.3)              
 #>  stringi       1.4.6      2020-02-17 [1] CRAN (R 3.6.2)              
-#>  stringr       1.4.0      2019-02-10 [1] CRAN (R 3.6.2)              
-#>  testthat      2.3.2      2020-03-02 [1] CRAN (R 3.6.2)              
-#>  usethis       1.6.1      2020-04-29 [1] CRAN (R 3.6.2)              
-#>  withr         2.2.0      2020-04-20 [1] CRAN (R 3.6.2)              
-#>  xfun          0.16       2020-07-24 [1] CRAN (R 3.6.2)              
+#>  stringr       1.4.0      2019-02-10 [1] CRAN (R 3.6.3)              
+#>  testthat      2.3.2      2020-03-02 [1] CRAN (R 3.6.3)              
+#>  usethis       1.6.1      2020-04-29 [1] CRAN (R 3.6.3)              
+#>  withr         2.2.0      2020-04-20 [1] CRAN (R 3.6.3)              
+#>  xfun          0.15       2020-06-21 [1] CRAN (R 3.6.3)              
 #>  yaml          2.2.1      2020-02-01 [1] CRAN (R 3.6.2)              
 #> 
-#> [1] /home/anna/R/x86_64-pc-linux-gnu-library/3.6
-#> [2] /usr/local/lib/R/site-library
-#> [3] /usr/lib/R/site-library
-#> [4] /usr/lib/R/library
+#> [1] C:/Users/Anna/Documents/R/win-library/3.6
+#> [2] C:/Program Files/R/R-3.6.3/library
 \end{verbatim}
 
 The current Git commit details are:
 
 \begin{verbatim}
-#> Local:    master /home/anna/Dropbox/anna/projects/replisims/peters2006
-#> Remote:   master @ origin (https://github.com/replisims/peters-2016.git)
-#> Head:     [7af113c] 2020-08-02: Update replication report
+#> Local:    wip C:/Users/Anna/Dropbox/anna/projects/replisims/peters2006
+#> Remote:   wip @ origin (https://github.com/replisims/peters-2016.git)
+#> Head:     [0227b64] 2020-08-22: Add all current code
 \end{verbatim}
 
 

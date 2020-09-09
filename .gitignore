@@ -54,7 +54,6 @@ rsconnect/
 *.log
 *.lot
 *.out
-*.pdf
 *.gz
 *.run.xml
 *.syntex.gz
@@ -78,7 +77,7 @@ rsconnect/
 # You may or may not also want to exclude the following non-text outputs
 *.ps
 *.eps
-*.pdf
+
 
 ## Datafiles related ignores
 

@@ -24,6 +24,15 @@ egger_test <- function(or_sim, se_lnor,
   test_result <- summary(fit_egger)$coefficients["precision","Pr(>|t|)"] < sig_threshold
 }
 
+egger_test2 <- function(or_sim, se_lnor,
+                       sig_threshold = 0.1){
+  lnor_sim <- log(or_sim)
+  std_es <- lnor_sim/se_lnor
+  precision <- 1/se_lnor
+  fit_egger  <- lm(std_es  ~ precision)
+
+  test_result <- summary(fit_egger)$coefficients["(Intercept)","Pr(>|t|)"] < sig_threshold
+}
 
 # Peters test -------------------------------------------------------------
 

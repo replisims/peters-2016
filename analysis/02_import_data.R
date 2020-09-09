@@ -3,7 +3,7 @@ library(tidyverse)
 
 
 # List of small data parcels
-data_paths <- list("analysis/data/sim_data.rds",
+data_paths <- list("analysis/data/sim_data1.rds",
                    "analysis/data/sim_data2.rds",
                    "analysis/data/sim_data3.rds",
                    "analysis/data/sim_data4.rds",
@@ -24,7 +24,7 @@ results_data <- data_paths %>%
     results_egger <-   import_data %>%
       group_by(job_id, scenario_id) %>%
         summarize(test_type ="egger",
-                  test_result = egger_test(or_sim, se_lnor, sig_threshold = 0.1))
+                  test_result = egger_test2(or_sim, se_lnor, sig_threshold = 0.1))
 
     # Perform Peters test on simulated data -----------------------------------
 
@@ -84,5 +84,5 @@ saveRDS(results_h0_false, "analysis/data/results_h0_false.rds")
 # Tabular results ---------------------------------------------------------
 
 power_table <- results_h0_false %>%
-    group_by(ma_size, odds_ratio,  bias_type, test_type) %>%
+    group_by(ma_size, odds_ratio,  bias_type, test_type, heterogeneity) %>%
       summarize(power = mean(error_rate))

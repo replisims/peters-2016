@@ -24,7 +24,7 @@ prob_cg_distr <- function() {
 }
 n_cg_distr <-
   function() {
-    exp(rnorm(1, mean = 5, sd = 0.3)) %>% round()
+    exp(rnorm(1, mean = 5, sd = sqrt(0.3))) %>% round()
   }
 
 # Variable design parameters ----------------------------------------------
@@ -50,15 +50,18 @@ scenarios <- compile_scenarios(
   bias_table = bias_table
 )
 
-saveRDS(scenarios, file = "scenarios.rds")
+save(scenarios, file = "data/scenarios.rda")
 
 # Run simulation ----------------------------------------------------------
 
-sim_data <-
-  run_sim(iteration_range = 1:100,    #please change for testing
+library(tidyverse)
+
+# Run in batches of 100 replications at a time
+1:10 %>% walk( ~{sim_data <-
+  run_sim(iteration_range = ((.x - 1)*100 + 1) :(.x*100),
           scenarios = scenarios)
 
-saveRDS(sim_data, file = "data/sim_data.rds")
+  saveRDS(sim_data, file = paste0("analysis/data/sim_data", .x, ".rds"))
+  })
 
-#source("analysis/analysis.R")
 

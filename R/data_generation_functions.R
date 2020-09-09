@@ -106,17 +106,19 @@ generate_meta_analysis <-function(job_id,
 #' @return A list of descriptives for one simulated study.
 #' @importFrom magrittr "%>%"
 
-simulate_study <- function(job_id,
-                            scenario_id,
+simulate_study <- function(job_id = NULL,
+                            scenario_id = NULL,
                             p_contr,
                             bias_type,
                             bias_strength = NULL,
                             odds_ratio,
-                            n_cg_distr,
-                           bias_table,
+                            n_cg_distr = "n_cg_distr",
+                            bias_table,
                             tau_squared = 0){
 
-  theta <- rnorm(1, mean = log(odds_ratio), sd = sqrt(tau_squared))
+  theta <- rnorm(n = 1,
+                 mean = log(odds_ratio),
+                 sd = sqrt(tau_squared))
 
   # odds in exposure and control group
   odds_contr <- p_contr / (1 - p_contr)
@@ -126,7 +128,7 @@ simulate_study <- function(job_id,
   p_exp <- odds_exp/ (1 + odds_exp)
 
   # n control subjects (page 15 technical report)
-  n <- n_cg_distr()
+  n <- rlang::exec(n_cg_distr)
 
   sim_contr <- rbinom(n, size = 1, prob = p_contr)
   sim_exp <-  rbinom(n, size = 1, prob = p_exp)
@@ -136,13 +138,6 @@ simulate_study <- function(job_id,
 
   event_sim_contr <- sim_contr %>% sum
   event_sim_exp <- sim_exp %>% sum
-
-  p_value <- compute_p_value(n = n,
-                             event_sim_exp = event_sim_exp,
-                             event_sim_contr = event_sim_contr)
-
-  # logical vector of selected studies
-  selected <- set_selection_indicator(bias_type, p_value, bias_strength, bias_table)
 
   # Computing a,b,c,d from 2x2 table
   # a = number of events in exposed group
@@ -160,6 +155,13 @@ simulate_study <- function(job_id,
   var_within = 1/a + 1/b + 1/c + 1/d
   se_lnor = sqrt(1/a + 1/b + 1/c + 1/d)
   or_sim = (a*d)/(b*c)
+
+  # Compute p value of observed log odds ratio
+  p_value <- compute_p_value(log_odds = log(or_sim),
+                             sd = se_lnor)
+
+  # logical vector of selected studies
+  selected <- set_selection_indicator(bias_type, p_value, bias_strength, bias_table)
 
   list(job_id = job_id,
        scenario_id = scenario_id,
@@ -279,25 +281,17 @@ simulate_unbiased_study_set <- function(job_id,
 
 #' Compute p_value.
 #'
-#' Obtains one-sided p-value from chi-square test.
+#' Obtains one-sided p-value from z test of the log odds ratio.
 #'
-#' @param n size of both exposed and control group.
-#' @param event_sim_exp  Simuated number of events in exposed group.
-#' @param event_sim_contr Simulated number of events in control-group.
+#' @param log_odds log odds ratio of observed data.
+#' @param sd  stadard error of the log odds ratio.
 #'
-#' @return Returns one sided p-value from chi-square test.
-#' @importFrom magrittr "%>%"
+#' @return Returns one sided p-value from z test.
 
-compute_p_value <- function(n, event_sim_exp, event_sim_contr){
-
-    matrix(c(event_sim_exp, (n - event_sim_exp),
-             event_sim_contr, (n - event_sim_contr)),
-           nrow = 2, byrow = T) %>%
-      chisq.test(correct = FALSE) %>%
-        .$p.value
+compute_p_value <- function(log_odds, sd) {
+  z_i <- log_odds/sd
+  1 - pnorm(z_i)
 }
-
-
 
 # Compute selection probablility -----------------------------------------------
 
@@ -318,7 +312,7 @@ select_prob <- function(p_value, bias_strength, bias_table){
   sec_table <- bias_table[[bias_strength]]$sec_table
 
   # output selection probability
-  sec_table[min(which(p_table > p_value))]
+  sec_table[min(which(p_table >= p_value))]
 }
 
 

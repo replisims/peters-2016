@@ -15,13 +15,8 @@
 
 compile_plot_data <- function(sim_data, scenarios) {
 
-  ma_level_df <- sim_data %>%
-    group_by(job_id, scenario_id) %>%
-      summarize(i_squared_unbiased = mean(i_squared_unbiased),
-             i_squared_biased = mean(i_squared_biased))
-
   plot_data <-
-    left_join(ma_level_df, scenarios, by = "scenario_id") %>%
+    left_join(sim_data, scenarios, by = "scenario_id") %>%
     mutate(bias_type_fct = factor(bias_type,
                                   levels = c("p","es"),
                                   labels = c("p-value", "effect size")))
@@ -41,10 +36,12 @@ compile_plot_data <- function(sim_data, scenarios) {
 boxplot_biased <- function(plot_data) {
 
   ggplot(plot_data, aes(x = factor(heterogeneity),
-                                             y = i_squared_biased)) +
-    geom_violin(aes(color = bias_type_fct, fill = bias_type_fct),
+                        y = mean_i_squared_biased)) +
+    geom_violin(aes(color = bias_detail,
+                    fill = bias_detail),
                 alpha = 0.2,
-                draw_quantiles = c(0.5)) +
+                draw_quantiles = c(0.5),
+                position = position_dodge(width = 0.9)) +
     geom_violin(fill = NA,
                 size = 0.7,
                 draw_quantiles = c(0.5)) +
@@ -53,6 +50,12 @@ boxplot_biased <- function(plot_data) {
                aes(x = x, y = y),
                size = 3,
                color ="red") +
+geom_point(position = position_dodge(width = 0.9),
+           data = df_summary,
+    aes(x = factor(heterogeneity),
+        y = med,
+        group = bias_detail,
+        color = bias_detail))+
     theme_classic() +
     labs(
       title = "Intended vs observed heterogeneity after publication bias",
@@ -77,10 +80,11 @@ boxplot_biased <- function(plot_data) {
 bloxplot_unbiased <- function(plot_data) {
 
   ggplot(plot_data, aes(x = factor(heterogeneity),
-                                           y = i_squared_unbiased)) +
-    geom_violin(aes(color = bias_type_fct, fill = bias_type_fct),
+                                           y = mean_i_squared_unbiased)) +
+    geom_violin(aes(color = bias_detail, fill = bias_detail),
                 alpha = 0.2,
-                draw_quantiles = c(0.5)) +
+                draw_quantiles = c(0.5),
+                position = position_dodge(width = 0.9)) +
     geom_violin(fill = NA,
                 size = 0.7,
                 draw_quantiles = c(0.5)) +
@@ -89,6 +93,12 @@ bloxplot_unbiased <- function(plot_data) {
                aes(x = x, y = y),
                size = 3,
                color ="red") +
+    geom_point(position = position_dodge(width = 0.9),
+           data = df_summary2,
+    aes(x = factor(heterogeneity),
+        y = med,
+        group = bias_detail,
+        color = bias_detail)) +
     theme_classic() +
     labs(
       title = "Intended vs observed heterogeneity before publication bias",
