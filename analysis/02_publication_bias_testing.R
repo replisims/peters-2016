@@ -3,16 +3,16 @@ library(tidyverse)
 
 
 # List of small data parcels
-data_paths <- list("analysis/data/sim_data1.rds",
-                   "analysis/data/sim_data2.rds",
-                   "analysis/data/sim_data3.rds",
-                   "analysis/data/sim_data4.rds",
-                   "analysis/data/sim_data5.rds",
-                   "analysis/data/sim_data6.rds",
-                   "analysis/data/sim_data7.rds",
-                   "analysis/data/sim_data8.rds",
-                   "analysis/data/sim_data9.rds",
-                   "analysis/data/sim_data10.rds")
+data_paths <- list("analysis/data/raw_data/sim_data1.rds",
+                   "analysis/data/raw_data/sim_data2.rds",
+                   "analysis/data/raw_data/sim_data3.rds",
+                   "analysis/data/raw_data/sim_data4.rds",
+                   "analysis/data/raw_data/sim_data5.rds",
+                   "analysis/data/raw_data/sim_data6.rds",
+                   "analysis/data/raw_data/sim_data7.rds",
+                   "analysis/data/raw_data/sim_data8.rds",
+                   "analysis/data/raw_data/sim_data9.rds",
+                   "analysis/data/raw_data/sim_data10.rds")
 
 results_data <- data_paths %>%
   map_df(~{
@@ -77,8 +77,8 @@ results_h0_false <- results_data %>%
 
 # Save data for plotting --------------------------------------------------
 
-saveRDS(results_h0_true, "analysis/data/results_h0_true.rds")
-saveRDS(results_h0_false, "analysis/data/results_h0_false.rds")
+saveRDS(results_h0_true, "analysis/data/derived_data/results_h0_true.rds")
+saveRDS(results_h0_false, "analysis/data/derived_data/results_h0_false.rds")
 
 
 # Tabular results ---------------------------------------------------------

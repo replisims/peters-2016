@@ -427,8 +427,16 @@ peters2006
 `
 
 - 
-- data
+- data: contains the package data in this case a data frame with the original simulation scenarios
 - man: containes the documentation for all package functions
+- analysis: contains code to run the simulation 
+  - 01_data_generation.R 
+  run the simlation with the original simulation prameters
+  - 02_publication_bias_testing.R
+  apply Egger and Peters regression test to generated data
+  - 03_performance plots obtain plots for type 1 error rate and power
+  - 04_primary_study_selection_plot plot the number of primary studies generated before publicaiton bias
+  - 05_heterogeneity_plots plot intended vs observed heterogeneity under various publication bias scenarios
 
 ### Reproducibility Information
 

@@ -61,7 +61,7 @@ library(tidyverse)
   run_sim(iteration_range = ((.x - 1)*100 + 1) :(.x*100),
           scenarios = scenarios)
 
-  saveRDS(sim_data, file = paste0("analysis/data/sim_data", .x, ".rds"))
+  saveRDS(sim_data, file = paste0("analysis/data/raw_data/sim_data", .x, ".rds"))
   })
 
 

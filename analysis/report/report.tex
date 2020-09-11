@@ -39,6 +39,7 @@
 \hypersetup{
   pdftitle={Replication Report - Peters et al.~2006},
   pdfauthor={Anna Lohmann1 \& Rolf H. H. Groenwold1,2},
+  pdflang={en-EN},
   pdfkeywords={replication, replicability, simulation study, publication bias, meta-analysis, Egger's regression test, Peters' regression test},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -413,7 +414,7 @@ The type 1 error rate (proportion of false positives) is defined as statistical 
 \subsection{Technical implementation}\label{technical-implementation}}
 
 While the original simulation study was carried out in STATA 8.2 our replication was implemented
-using the R programming environment (details regarding software versions can be obtained from the section Repruducibility Information).
+using the R programming environment (details regarding software versions can be obtained from the section Reproducibility Information).
 The corresponding R code can be obtained from \url{https://github.com/replisims/peters-2016}.
 
 \hypertarget{replicator-degrees-of-freedom}{%
@@ -421,7 +422,7 @@ The corresponding R code can be obtained from \url{https://github.com/replisims/
 
 The following table provides an overview of replicator degrees of freedom, i.e.~decisions that had to be made by the replicators because of insufficient or contradicting information.
 Issues were resolved by discussion among the replicators.
-Dessisions were based on what the replicators perceived to be the most likely implementation with likeliness estimated by common practice and/or guideline recomendations.
+Decisions were based on what the replicators perceived to be the most likely implementation with likeliness estimated by common practice and/or guideline recomendations.
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
@@ -721,10 +722,83 @@ Peters, J. L., Sutton, A. J., Jones, D. R., Abrams, K. R., \& Rushton, L. (2006)
 \includegraphics[width=300pt]{../figures/power_es_moderate} \caption{Power to detect severe publication bias induced by p-value}\label{fig:unnamed-chunk-5}
 \end{figure}
 
+\hypertarget{code-organization}{%
+\subsection{Code organization}\label{code-organization}}
+
+The code and the files associated are organized in the form of a reseatch compendium
+which can be found in the following git repository \texttt{https://github.com/replisims/peters-2016}
+
+peters2006
+├── analysis
+│~~ ├── analysis.R
+│~~ ├── data
+│~~ │~~ ├── derived\_data
+│~~ │~~ ├── DO-NOT-EDIT-ANY-FILES-IN-HERE-BY-HAND
+│~~ │~~ ├── raw\_data
+│~~ │~~ │~~ ├── results\_data.rds
+│~~ │~~ │~~ ├── results\_h0\_false.rds
+│~~ │~~ │~~ ├── results\_h0\_true.rds
+│~~ │~~ │~~ ├── sim\_data10.rds
+│~~ │~~ │~~ ├── sim\_data1.rds
+│~~ │~~ │~~ ├── sim\_data2.rds
+│~~ │~~ │~~ ├── sim\_data3.rds
+│~~ │~~ │~~ ├── sim\_data4.rds
+│~~ │~~ │~~ ├── sim\_data5.rds
+│~~ │~~ │~~ ├── sim\_data6.rds
+│~~ │~~ │~~ ├── sim\_data7.rds
+│~~ │~~ │~~ ├── sim\_data8.rds
+│~~ │~~ │~~ └── sim\_data9.rds
+│~~ ├── descriptives.R
+│~~ ├── figures
+│~~ ├── import\_data.R
+│~~ ├── main.R
+│~~ ├── nested\_loop\_plot.R
+│~~ ├── plotting\_call.R
+│~~ ├── pretty\_plots.R
+│~~ ├── report
+│~~ └── shiny
+├── data
+│~~ └── scenarios.rda
+├── DESCRIPTION
+├── man
+├── NAMESPACE
+├── peters2006.Rproj
+├── R
+├── README.md
+├── README.Rmd
+└── references.bib
+`
+
+\begin{itemize}
+\item
+\item
+  data: contains the package data in this case a data frame with the original simulation scenarios
+\item
+  man: containes the documentation for all package functions
+\item
+  analysis: contains code to run the simulation
+
+  \begin{itemize}
+  \tightlist
+  \item
+    01\_data\_generation.R
+    run the simlation with the original simulation prameters
+  \item
+    02\_publication\_bias\_testing.R
+    apply Egger and Peters regression test to generated data
+  \item
+    03\_performance plots obtain plots for type 1 error rate and power
+  \item
+    04\_primary\_study\_selection\_plot plot the number of primary studies generated before publicaiton bias
+  \item
+    05\_heterogeneity\_plots plot intended vs observed heterogeneity under various publication bias scenarios
+  \end{itemize}
+\end{itemize}
+
 \hypertarget{reproducibility-information}{%
 \subsubsection{Reproducibility Information}\label{reproducibility-information}}
 
-This report was last updated on 2020-09-07 21:08:16.
+This report was last updated on 2020-09-11 17:10:32.
 The simulation replication was conducted using the following computational environment and dependencies:
 
 \begin{verbatim}
@@ -738,18 +812,18 @@ The simulation replication was conducted using the following computational envir
 #>  collate  English_United States.1252  
 #>  ctype    English_United States.1252  
 #>  tz       Europe/Berlin               
-#>  date     2020-09-07                  
+#>  date     2020-09-11                  
 #> 
 #> - Packages -------------------------------------------------------------------
 #>  package     * version    date       lib source                      
 #>  assertthat    0.2.1      2019-03-21 [1] CRAN (R 3.6.3)              
 #>  backports     1.1.6      2020-04-05 [1] CRAN (R 3.6.3)              
-#>  bookdown      0.18       2020-03-05 [1] CRAN (R 3.6.3)              
-#>  callr         3.4.3      2020-03-28 [1] CRAN (R 3.6.3)              
+#>  bookdown      0.20       2020-06-23 [1] CRAN (R 3.6.3)              
+#>  callr         3.4.4      2020-09-07 [1] CRAN (R 3.6.3)              
 #>  cli           2.0.2      2020-02-28 [1] CRAN (R 3.6.3)              
 #>  crayon        1.3.4      2017-09-16 [1] CRAN (R 3.6.3)              
 #>  desc          1.2.0      2018-05-01 [1] CRAN (R 3.6.3)              
-#>  devtools      2.3.0      2020-04-10 [1] CRAN (R 3.6.3)              
+#>  devtools      2.3.1      2020-07-21 [1] CRAN (R 3.6.3)              
 #>  digest        0.6.25     2020-02-23 [1] CRAN (R 3.6.3)              
 #>  ellipsis      0.3.1      2020-05-15 [1] CRAN (R 3.6.3)              
 #>  evaluate      0.14       2019-05-28 [1] CRAN (R 3.6.3)              
@@ -761,13 +835,13 @@ The simulation replication was conducted using the following computational envir
 #>  magrittr      1.5        2014-11-22 [1] CRAN (R 3.6.3)              
 #>  memoise       1.1.0      2017-04-21 [1] CRAN (R 3.6.3)              
 #>  papaja      * 0.1.0.9997 2020-08-25 [1] Github (crsh/papaja@0457653)
-#>  pkgbuild      1.0.7      2020-04-25 [1] CRAN (R 3.6.3)              
+#>  pkgbuild      1.1.0      2020-07-13 [1] CRAN (R 3.6.3)              
 #>  pkgload       1.0.2      2018-10-29 [1] CRAN (R 3.6.3)              
 #>  prettyunits   1.1.1      2020-01-24 [1] CRAN (R 3.6.3)              
 #>  processx      3.4.2      2020-02-09 [1] CRAN (R 3.6.3)              
 #>  ps            1.3.2      2020-02-13 [1] CRAN (R 3.6.3)              
 #>  R6            2.4.1      2019-11-12 [1] CRAN (R 3.6.3)              
-#>  remotes       2.1.1      2020-02-15 [1] CRAN (R 3.6.3)              
+#>  remotes       2.2.0      2020-07-21 [1] CRAN (R 3.6.3)              
 #>  rlang         0.4.6      2020-05-02 [1] CRAN (R 3.6.3)              
 #>  rmarkdown     2.3        2020-06-18 [1] CRAN (R 3.6.3)              
 #>  rprojroot     1.3-2      2018-01-03 [1] CRAN (R 3.6.3)              
@@ -789,7 +863,7 @@ The current Git commit details are:
 \begin{verbatim}
 #> Local:    wip C:/Users/Anna/Dropbox/anna/projects/replisims/peters2006
 #> Remote:   wip @ origin (https://github.com/replisims/peters-2016.git)
-#> Head:     [0227b64] 2020-08-22: Add all current code
+#> Head:     [3d24eca] 2020-09-09: All the stuff
 \end{verbatim}
 
 

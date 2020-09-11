@@ -1,4 +1,4 @@
-# Plotting
+# Plotting intended vs observed heterogeneity
 
 plot_data_descr2 <- results_data_descr %>%
   dplyr::left_join(scenarios, by = "scenario_id") %>%
@@ -43,36 +43,3 @@ ggsave("analysis/figures/i_squared_unbiased.png",
         scale = 1,
         dpi = 300,
         limitsize = TRUE)
-
-# # Load analysed data ------------------------------------------------------
-#
-results_h0_true <- readRDS("results_h0_true.rds")
-results_h0_false <- readRDS("results_h0_false.rds")
-
-
-# Type I error rate plot --------------------------------------------------
-
-plot_type_1 <- plot_error_rate(df = results_h0_true,
-                  titel = "Type 1 error rate",
-                  yaxis = "Type 1 error rate",
-                  facet1 = ma_size,
-                  facet2 = odds_ratio,
-                  facet3 = heterogeneity,
-                  facet4 = bias_type)$plots
-
-# Power plot --------------------------------------------------------------
-
-plot_power <- plot_error_rate(df = power_table,
-                  titel = "Power",
-                  yaxis = "Power",
-                  facet1 = ma_size,
-                  facet2 = odds_ratio,
-                  facet3 = heterogeneity,
-                  facet4 = bias_type)$plots
-
-pdf("analysis/figures/error_rate_plot.pdf", width = 16, height = 8)
-
-  ((plot_type_1[[1]] / plot_type_1[[2]]) | wrap_plots(plot_power)) +
-    plot_layout(guides = 'collect')
-
-  dev.off()

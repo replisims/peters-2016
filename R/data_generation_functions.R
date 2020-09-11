@@ -98,10 +98,10 @@ generate_meta_analysis <-function(job_id,
 #' @param bias_type Bias type can either be "p" or "es".
 #' @param bias_strength  String indicating bias severity "moderate" or "strong".
 #'   only needs to be supplied when bias type = "p".
-#' @param odds_ratio True underlying effect of the symulated meta-analysis.#'
+#' @param odds_ratio True underlying effect of the simulated meta-analysis.#'
 #' @param n_cg_distr Sample size in control group (= sample size in exposed group)
 #'   Can be any value or function that evaluates to an integer.
-#' @param tau_squared Product of hereogeneity parameter and mean within study-variance
+#' @param tau_squared Product of heterogeneity parameter and mean within study-variance
 #'
 #' @return A list of descriptives for one simulated study.
 #' @importFrom magrittr "%>%"
