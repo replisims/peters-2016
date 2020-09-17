@@ -88,27 +88,29 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 # Introduction
 
 This replication report documents the replication attempt of the simulation study Peters, J. L., Sutton, A. J., Jones, D. R., Abrams, K. R., & Rushton, L. (2006). Comparison of Two Methods to Detect Publication Bias in Meta-analysis. *JAMA*, 295(*6*), 676–678. https://doi.org/10.1001/jama.295.6.676 [@peters_comparison_2006]. 
-Following the definition of [@rougier_sustainable_2017] we understand the replication of a published study as writing and running new code based on the description provided in the original publication with the aim of obtaining the same results.
+Following the definition of @rougier_sustainable_2017-1 we understand the replication of a published study as writing and running new code based on the description provided in the original publication with the aim of obtaining the same results.
 
-The method section details the sources of information utilized for the present replication attempt. It furthermore provides an overview of the information that was extracted from those sources as well as the technical implementation of the replication.
-A separate section covers all researcher degrees of freedom, i.e. decisions that had to be made by the replicators because of insufficient or contradicting information in the original sources. 
+The methods section details the sources of information utilized for the present replication attempt. It furthermore provides an overview of the information that was extracted from these sources as well as the technical implementation of the replication.
+A separate section covers all replicator degrees of freedom, i.e. decisions that had to be made by the replicators due to of insufficient or contradicting information in the original sources. 
+
 In the results section we present descriptive statistics from the data generating mechanism, i.e. the artificial sample. 
 as well as the replicated results.
+
 The discussion section reflects the replication attempt with regards to general replicability, replicator degrees of freedom and equivalence of results.
 The appendix contains the README file providing an overview of the accompanying code as well as additional results figures that do not correspond to the original manuscript.
 
 # Method
 
 ## Information basis
-The information upon which the replication is based stems from two different sources (1) the published manuscript [@peters_comparison_2006] (referred to as * (original) article*) as well as (2) a technical report [@peters_performance_2005]. 
-The published article is fairly short and repeatedly refers to details obtainable from a technical report. 
+The information upon which the replication is based stems from two different sources (1) the published manuscript [@peters_comparison_2006] (referred to as *"(original) article"*) as well as (2) a technical report [@peters_performance_2005]. 
+The published article is fairly brief and repeatedly refers to details obtainable from a technical report. 
 The technical report is listed in the reference section of the published article, however it was not available from the public domain (i.e. online line supplements or a public online repository). 
 The technical report was hence requested and obtained by email from the Department of Health Sciences at Leister University (hsenquiries@leicester.ac.uk). <!--Conflicting or insufficient information from there two sources were supplemented with information from referenced articles in either manuscript as well as similar publications on the topic by the same authors.-->
 <!-- Add that the author was contacted once we have actually done that  -->
 
 ## Data Generating Mechanism
 
-INformation provided in the above mentioned sources indicated that the following simulation factors were systematically varied in generating the artificial data.
+Information provided in the above mentioned sources indicated that the following simulation factors were systematically varied in generating the artificial data.
 
 | Simulation factor | No. levels | Levels|
 |------|--|-------|
@@ -120,11 +122,11 @@ INformation provided in the above mentioned sources indicated that the following
 | *Fixed* |||
 | Sample size control group| |exponential of the normal distribution with a mean of 5 and variance of 0.3 |
 | Ratio treatment:control group| |1:1|     
-| Probability of event in control group| | sampled from unif(0.3, 0.7)| 
+| Probability of event in control group| | sampled from 'unif(0.3, 0.7)'| 
 
 ### Publication bias
 Five different levels of publication bias were implemented: (i) No publication bias, (ii) moderate p-value based publication bias, (iii) severe p-value based publication bias, (iv) moderate effect-size based publication bias as well as (v) severe effect-size based publication bias.
-Details regarding the implementation of each of these levels was obtained from the technical report (p.15, p. 20). The original article only mentions that funnel plot asymmetry was *"[...] induces in 2 ways. First, it was induced on the basis of the value associated with a study's effect size (the larger the P value the more likely that study was excluded from the meta-analysis).[...] publication bias was also induced on the basis of study effect size with the most extreme negative effect sizes were excluded from the meta-analysis."*(p.677)
+Details regarding the implementation of each of these levels was obtained from the technical report (p.15, p. 20). The original article only mentions that funnel plot asymmetry was *"[...] induces in 2 ways. First, it was induced on the basis of the value associated with a study's effect size (the larger the P value the more likely that study was excluded from the meta-analysis).[...] publication bias was also induced on the basis of study effect size with the most extreme negative effect sizes were excluded from the meta-analysis."* (p.677)
 
 For p-value based publication bias studies are censored as a result of the one-sided p-value associated with the effect estimate of interest. The p-value based selection probabilities is given in the following table which was taken from the technical report (table 2, report p. 15).
 
@@ -140,7 +142,7 @@ Severe|<0.05|1|
 
 For publication bias induced by effect size, a given percentage of studies with the most extreme effect estimates of effect are censored. For moderate publication bias this percentage corresponds to 14% and for severe publication bias 40% of studies.
 
-Primary studies are generated following either a true or a random effects model depending on the heterogeneity of a given scenario.
+Primary studies are generated following either a true or a random effects model depending on the presence of between-study heterogeneity in a given scenario.
 
 ### True effect
 Fixed effects model is given by
@@ -164,7 +166,7 @@ The technical report gives $N(5, 0.3)$ as the distribution from which the number
 
 
 ### Repetitions
-Each of the 400 unique scenarios were repeated 1000 times.
+Each of the 400 unique scenarios were repeated 1000 times (original article page 677).
 
 ### Data generating process
 Figure 1 provides a flow chart with an overview of the data generating process.
@@ -193,8 +195,8 @@ Data generation can be summarized with the following pseudo code:
 
 ## Compared Methods
 The study compares two regression tests for the detection of publication bias in meta-analyses. 
-The first Egger's regression test regresses the standardized effect estimate on a measure of precision (see equation 1). 
-The second (referred to as "alternative regression test in the original article) is a variation of Macaskill's test and regresses the effect size on the inverse of the total sample size (see equation 2). 
+The first Egger's regression test [@egger_bias_1997] regresses the standardized effect estimate on a measure of precision (see equation 1). 
+The second (referred to as "alternative regression test in the original article) is a variation of Macaskill's test [@macaskill_comparison_2001] and regresses the effect size on the inverse of the total sample size (see equation 2). 
 We refer to this test as Peters' regression test in the present report.
 
 ### Egger's regression test
@@ -223,7 +225,7 @@ The following table provides an overview of replicator degrees of freedom,
 i.e. decisions that had to be made by the replicators because of insufficient or contradicting information. 
 Issues were resolved by discussion among the replicators. 
 Decisions were based on what the replicators perceived to be the most likely implementation with likeliness estimated by common practice and/or guideline recommendations.
-Whereever feasible multiple interpretations where implemented.
+Wherever feasible multiple interpretations where implemented.
 
 | Issue| Replicator decision| Justification |
 |--------|--------|------|
@@ -281,7 +283,17 @@ Additional figures for both collapsed publication bias as well as moderate publi
 ## Simulation descriptives
 The technical report presents a figure showing the mean number of studies generated to obtain the number of studies required under "moderate" and "severe" bias (figure 2, p.17)
 This closely corresponds to the numbers found in the replication.
-![Mean numbers of studies generated to obtain the number of studies required under 'moderate' and 'severe' bias](../figures/studies_generated.png)
+
+```{r, out.width='400pt', fig.cap= "Mean numbers of studies generated to obtain the number of studies required under 'moderate' and 'severe' bias"}
+knitr::include_graphics("../figures/studies_generated.png")
+```
+
+
+```{r, out.width='400pt', fig.cap= "Corresponding figure from the technical report"}
+knitr::include_graphics("../data/figure_2.PNG")
+```
+
+
 As detailed above the exact procedure to simulate the heterogeneity was not sufficiently described in neither the article nor the technical report. The following figure shows the intended $I^2$ compared to the observed $I^2$ for a given meta-analysis both before as well as after the application of publication bias.
 
  ```{r, out.width='400pt', fig.cap= "Intended vs observed $I^2$ before publication bias"}
@@ -297,7 +309,7 @@ knitr::include_graphics("../figures/i_squared_biased.png")
 The following table provides an overview of figures related to central outcomes of the original study. 
 <!-- Obtain Author's permission to show original figures-->
 
-Overview of result figures in the original artical and the technical report
+Overview of result figures in the original article and the technical report
 
 |Performance measure| Test | Scenario| source|
 |---|---|---|
@@ -310,28 +322,47 @@ Overview of result figures in the original artical and the technical report
 |Power| Both| (severe?) publication bias induced by effect size, 500% heterogeneity| Figure 12 report p. 32|
 |Power| Both| (severe?) publication bias induced by p-value, 500% heterogeneity| Figure 13 report p. 33|
 
+### Type 1 error rate
+The general trends regarding type one error rates of Egger's regression test and Peters' regression test can be regarded as replicated. However, a few noteworthy deviations from the original results emerged. While the type one error rate of Egger's test for an OR of one seemed to correspond to 10% across differing degrees of heterogeneity, our results suggest that the type one error rate increases with increasing heterogeneity. A similar trend can be observed for an OR of 1.5. Comparing our results to figure 9 of the technical report where results are depicted for all OR it becomes evident that while similar the results differ in magnitude. Due to the low quality of the figure it is not possible to further specify these differences as the different lines cannot be matched to the corresponding ORs.
 
 ```{r, out.width='400pt', fig.cap= "Type I error rate"}
 knitr::include_graphics("../figures/type_1_error.png")
 ```
 
+```{r, out.width='400pt', fig.cap= "Corresponding figure from the original article"}
+knitr::include_graphics("../data/type_1_error.PNG")
+```
+
+### Power
+The results pertaining to the power to detect severe publication bias induced by p-value seen to perfectly align regarding Peters' test. For Eggert's test the comparison is similar as with the type one error rate. Overall trends and magnitude is highly comparable with noteworthy exceptions. Again the trends for an OR of one deviate from the original study. 
+While the original study reports low power with no visible trend of increasing heterogeneity our results suggest that for OR close to 1 power increases with increasing heterogeneity.
+More differences are visible when comparing our results to the figures from the technical report where it is evident that Peters' test exhibits some power for more than one OR while our results suggest that an OR of 1.5 was the only scenario with power substantially above the 10% level.
+There seem to be further discrepancies regarding the magnitude which again cannot be further quantified due to the lack of discrimination of different conditions in the original plots.
+
+
+
 ```{r, out.width='400pt', fig.cap= "Power to detect severe publication bias induced by p-value"}
 knitr::include_graphics("../figures/power_p_severe.png")
+```
+```{r, out.width='400pt', fig.cap= "Corresponding figure from the original article"}
+knitr::include_graphics("../data/power.PNG")
 ```
 
 ## Replication of results presented in text form 
 *"However, in Model 4c [which corresponds to the alternative test] we have a test that is superior to Egger's test in terms of expected type I error, but which also has good power to detect publication bias (equal to that of Egger's test), regardless of the amount of between-study heterogeneity."* (report p. 46)
 
 The superiority in terms of type one error rates can be clearly seen in our replication. 
-While Peter's and colleagues do not specify their definition of "equal",
-the power of Peter's test by no means seems equal to Egger's regression test. 
+While Peters and colleagues do not specify their definition of "equal",
+the power of Peter's test by no means seems equal to that of Egger's regression test. 
 
 *"When there is little between-study heterogeneity, the alternative regression test and Egger's regression test appear to have moderate power to detect asymmetry when it is induced on the basis of P value (Figure 3) and high power when asymmetry is induced on the magnitude of the effect (data not shown)."* (article page 679)
 
 While the authors do not define their definition of "moderate power" and "high power" we would not use these attributes to describe the results of our replication,
 at least not in respect to Peter's test.
-The wording furthermore seems to imply that the power of both tests is of a comparable magnitude which clearly does not seem to be the case in our replication.
+The wording furthermore seems to imply that the power of both tests is of a comparable magnitude which clearly does not seem to be the case in our replication. 
+Only for conditions of severe publication bias induced by effect size do claims of substantial power of Peters' test hold (see figure 9 in the appendix). 
 
+\FloatBarrier
 # Discussion
 
 ## Replicability
@@ -359,14 +390,15 @@ The present replication hence only includes our "best guess" of what might have 
 ## Equivalence of results
 The mean number of studies generated per scenario seems to match that of the original study (compare figure X of this report and figure 2 of the technical report). 
 This indicates that we were able to replicate the data generation based on the p-value based publications bias.
-Overall results regarding power and type one error match the original article.
-Due to the above mentioned imprecisions regarding the bias type displayed in certain result figures it is hard to tell which figures should correspond to each other.
+Overall results regarding power and type one error roughly matched the original article in magnitude and trends.
+Due to the above mentioned imprecisions regarding the bias type displayed in certain result figures it is hard to tell which figures should correspond to each other. Minor discrepancies might also be based on the simulation of heterogeneity which was somewhat vaguely described. 
+
 
 # Acknowledgments
 
 <!-- The following line inserts a page break  -->
 \newpage
-
+\FloatBarrier
 # References
 
 \begingroup
@@ -374,12 +406,12 @@ Due to the above mentioned imprecisions regarding the bias type displayed in cer
 \setlength{\leftskip}{0.5in}
 
 <div id="refs" custom-style="Bibliography"></div>
-
+\FloatBarrier
 \newpage
 
 # Appendix
 
-## Additonal result plots
+## Additional result plots
 ```{r, out.width='400pt', fig.cap= "Power to detect moderate publication bias induced by p-value"}
 knitr::include_graphics("../figures/power_p_moderate.png")
 ```
@@ -402,33 +434,17 @@ which can be found in the following git repository `https://github.com/replisims
 \begin{verbatim}
 peters2006
 ├── analysis
-│   ├── analysis.R
+│   ├── 01_data_generation.R
+│   ├── 02_publication_bias_testing.R
+│   ├── 03_performance_plots.R
+│   ├── 05_primary_study_selection_plot.R
+│   ├── 06_heterogeneity_plots.R
 │   ├── data
-│   │   ├── derived_data
-│   │   ├── DO-NOT-EDIT-ANY-FILES-IN-HERE-BY-HAND
-│   │   ├── raw_data
-│   │   │   ├── results_data.rds
-│   │   │   ├── results_h0_false.rds
-│   │   │   ├── results_h0_true.rds
-│   │   │   ├── sim_data10.rds
-│   │   │   ├── sim_data1.rds
-│   │   │   ├── sim_data2.rds
-│   │   │   ├── sim_data3.rds
-│   │   │   ├── sim_data4.rds
-│   │   │   ├── sim_data5.rds
-│   │   │   ├── sim_data6.rds
-│   │   │   ├── sim_data7.rds
-│   │   │   ├── sim_data8.rds
-│   │   │   └── sim_data9.rds
-│   ├── descriptives.R
 │   ├── figures
-│   ├── import_data.R
-│   ├── main.R
 │   ├── nested_loop_plot.R
-│   ├── plotting_call.R
-│   ├── pretty_plots.R
 │   ├── report
 │   └── shiny
+│       └── shiny.R
 ├── data
 │   └── scenarios.rda
 ├── DESCRIPTION
@@ -436,22 +452,29 @@ peters2006
 ├── NAMESPACE
 ├── peters2006.Rproj
 ├── R
-├── README.md
-├── README.Rmd
-└── references.bib
+│   ├── data_generation_functions.R
+│   ├── data.R
+│   ├── plot_error_rate.R
+│   ├── plot_helper.R
+│   ├── plot_i_squared.R
+│   ├── run_sim.R
+│   ├── scenarios.R
+│   └── test_functions.R
+└── README.md
 \end{verbatim}
 \end{minipage}
-- 
-- data: contains the package data in this case a data frame with the original simulation scenarios
-- man: contains the documentation for all package functions
-- analysis: contains code to run the simulation 
-  - 01_data_generation.R 
+
+- `data`: contains the package data in this case a data frame with the original simulation scenarios
+- `man`: contains the documentation for all package functions
+- `analysis`: contains code to run the simulation 
+  - `01_data_generation.R`
   run the simulation with the original simulation parameters
-  - 02_publication_bias_testing.R
+  - `02_publication_bias_testing.R`
   apply Egger's and Peters' regression test to generated data
-  - 03_performance plots obtain plots for type 1 error rate and power
-  - 04_primary_study_selection_plot plot the number of primary studies generated before publication bias
-  - 05_heterogeneity_plots plot intended vs observed heterogeneity under various publication bias scenarios
+  - `03_performance plots` obtain plots for type 1 error rate and power
+  - `04_primary_study_selection_plot` plot the number of primary studies generated before publication bias
+  - `05_heterogeneity_plots plot` intended vs observed heterogeneity under various publication bias scenarios
+
 
 ### Reproducibility Information
 
