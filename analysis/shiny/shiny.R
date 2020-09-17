@@ -81,7 +81,7 @@ server <- function(input, output, session){
                                                                   bias_table = bias_table
                                                                   )) %>%
       dplyr::group_by(job_id) %>%
-        dplyr::summarize(egger = egger_test2(or_sim, se_lnor, sig_threshold = 0.1),
+        dplyr::summarize(egger = egger_test(or_sim, se_lnor, sig_threshold = 0.1),
                   peters = peters_test(or_sim, n, a, b, c, d, sig_threshold = 0.1)) %>%
         dplyr::summarize(power_peters = mean(peters),
                   power_egger = mean(egger)) %>%
@@ -106,7 +106,7 @@ server <- function(input, output, session){
                                                                     bias_table = bias_table
                                                                     )) %>%
         dplyr::group_by(job_id) %>%
-          dplyr::summarize(egger = egger_test2(or_sim, se_lnor, sig_threshold = 0.1),
+          dplyr::summarize(egger = egger_test(or_sim, se_lnor, sig_threshold = 0.1),
                            peters = peters_test(or_sim, n, a, b, c, d, sig_threshold = 0.1)) %>%
           dplyr::summarize(type_1_error_peters = mean(peters),
                            type_1_error_egger = mean(egger)) %>%

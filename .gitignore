@@ -93,3 +93,6 @@ deprecated/
 archive/
 dump/
 
+## Anything with filenames containting tmp or old
+*tmp*
+*old*

@@ -24,7 +24,7 @@ results_data <- data_paths %>%
     results_egger <-   import_data %>%
       group_by(job_id, scenario_id) %>%
         summarize(test_type ="egger",
-                  test_result = egger_test2(or_sim, se_lnor, sig_threshold = 0.1))
+                  test_result = egger_test(or_sim, se_lnor, sig_threshold = 0.1))
 
     # Perform Peters test on simulated data -----------------------------------
 
@@ -48,7 +48,7 @@ results_data <- data_paths %>%
         ungroup()
     })
 
-saveRDS(results_data, file = "analysis/data/results_data.rds")
+saveRDS(results_data, file = "analysis/data/derived_data/results_data.rds")
 
 
 
